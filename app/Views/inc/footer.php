@@ -15,7 +15,7 @@
                     <li class="list-inline-item text-white-50">|</li>
                     <li class="list-inline-item"><a href="/LMS_Project/public/support/index" class="text-warning text-decoration-none fw-bold">Support</a></li>
                 </ul>
-                <p class="small text-white-50 mt-2 mb-0">&copy; <?= date('Y') ?> Developed by <strong>Student ID: BC00616</strong>. All Rights Reserved.</p>
+                <p class="small text-white-50 mt-2 mb-0">&copy; <?= date('Y') ?> Developed by <strong>Student BC00616</strong>. All Rights Reserved.</p>
             </div>
             
         </div>
