@@ -28,6 +28,7 @@ if (isset($_SESSION['user_id'])) {
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/LMS_Project/public/css/style.css">
     
     <style>
         body {
@@ -64,8 +65,12 @@ if (isset($_SESSION['user_id'])) {
             <i class="fas fa-graduation-cap"></i> LMS PLATFORM
         </a>
         
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler hamburger-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger-inner">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -74,28 +79,28 @@ if (isset($_SESSION['user_id'])) {
                 <?php if (isset($_SESSION['user_id'])): ?>
 
                     <?php if($_SESSION['user_role'] === 'student'): ?>
-                        <li class="nav-item me-3">
+                        <li class="nav-item me-3 nav-role-item">
                             <a class="nav-link text-white fw-bold" href="/LMS_Project/public/course/my_learning">
                                 <i class="fas fa-book-reader me-1"></i> My Learning
                             </a>
                         </li>
 
                     <?php elseif($_SESSION['user_role'] === 'instructor'): ?>
-                        <li class="nav-item me-3">
+                        <li class="nav-item me-3 nav-role-item">
                             <a class="nav-link text-warning fw-bold" href="/LMS_Project/public/course/my_courses">
                                 <i class="fas fa-chalkboard-teacher me-1"></i> Instructor Panel
                             </a>
                         </li>
 
                     <?php elseif($_SESSION['user_role'] === 'admin'): ?>
-                        <li class="nav-item me-3">
+                        <li class="nav-item me-3 nav-role-item">
                             <a class="nav-link text-danger fw-bold bg-white bg-opacity-10 rounded px-3" href="/LMS_Project/public/admin/dashboard">
                                 <i class="fas fa-user-shield me-1"></i> ADMIN PORTAL
                             </a>
                         </li>
                     <?php endif; ?>
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="/LMS_Project/public/message/index" title="Messages">
+                    <li class="nav-item nav-icon-item d-none d-lg-block">
+                        <a class="nav-link text-white d-flex align-items-center justify-content-center" href="/LMS_Project/public/message/index" title="Messages">
                             <i class="fas fa-envelope fa-lg"></i>
                             <?php if ($msgCount > 0): ?>
                                 <span class="badge rounded-pill bg-danger notification-badge">
@@ -104,9 +109,8 @@ if (isset($_SESSION['user_id'])) {
                             <?php endif; ?>
                         </a>
                     </li>
-
-                    <li class="nav-item me-4">
-                       <a class="nav-link text-white" href="/LMS_Project/public/profile/notifications" title="Notifications">
+                    <li class="nav-item nav-icon-item me-3 d-none d-lg-block">
+                        <a class="nav-link text-white d-flex align-items-center justify-content-center" href="/LMS_Project/public/profile/notifications" title="Notifications">
                             <i class="fas fa-bell fa-lg"></i>
                             <?php if ($notiCount > 0): ?>
                                 <span class="badge rounded-pill bg-danger notification-badge">
@@ -115,8 +119,24 @@ if (isset($_SESSION['user_id'])) {
                             <?php endif; ?>
                         </a>
                     </li>
+                    <li class="nav-item d-lg-none nav-icons-mobile">
+                        <div class="d-flex align-items-center gap-2 py-2">
+                            <a class="nav-link nav-icon-link-mobile text-white flex-fill d-flex align-items-center justify-content-center py-3 rounded-2" href="/LMS_Project/public/message/index" title="Messages">
+                                <i class="fas fa-envelope fa-lg me-1"></i>
+                                <?php if ($msgCount > 0): ?>
+                                    <span class="badge rounded-pill bg-danger notification-badge"><?= $msgCount > 99 ? '99+' : $msgCount ?></span>
+                                <?php endif; ?>
+                            </a>
+                            <a class="nav-link nav-icon-link-mobile text-white flex-fill d-flex align-items-center justify-content-center py-3 rounded-2" href="/LMS_Project/public/profile/notifications" title="Notifications">
+                                <i class="fas fa-bell fa-lg me-1"></i>
+                                <?php if ($notiCount > 0): ?>
+                                    <span class="badge rounded-pill bg-danger notification-badge"><?= $notiCount > 99 ? '99+' : $notiCount ?></span>
+                                <?php endif; ?>
+                            </a>
+                        </div>
+                    </li>
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown nav-user-dropdown">
                         <a class="nav-link dropdown-toggle text-warning fw-bold bg-white bg-opacity-10 rounded px-3" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="fas fa-user-circle me-1"></i> <?= htmlspecialchars($_SESSION['user_name']) ?>
                         </a>

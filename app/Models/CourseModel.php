@@ -55,6 +55,22 @@ class CourseModel {
         return $stmt->fetchAll();
     }
 
+    // 4b. Thống kê cho instructor: total courses, total students (enrollments), total earnings (mock: sum price per enrollment)
+    public function getInstructorStats($instructor_id) {
+        $courses = $this->getCoursesByInstructor($instructor_id);
+        $totalCourses = count($courses);
+        $totalStudents = 0;
+        $totalEarnings = 0;
+        foreach ($courses as $c) {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM enrollments WHERE course_id = ?");
+            $stmt->execute([$c['id']]);
+            $cnt = (int) $stmt->fetchColumn();
+            $totalStudents += $cnt;
+            $totalEarnings += $cnt * (float) ($c['price'] ?? 0);
+        }
+        return ['total_courses' => $totalCourses, 'total_students' => $totalStudents, 'total_earnings' => $totalEarnings];
+    }
+
     // 5. Helper: Tạo Slug từ Title (VD: "Lập trình PHP" -> "lap-trinh-php")
     // Hàm này giúp URL thân thiện SEO
     public function createSlug($string) {

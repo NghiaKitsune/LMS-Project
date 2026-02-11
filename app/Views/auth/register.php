@@ -1,59 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $data['title'] ?? 'Register' ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+<?php require_once '../app/Views/inc/header.php'; ?>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4>Student Registration</h4>
+<header class="bg-white py-4 mb-4 border-bottom">
+    <div class="text-center">
+        <h1 class="fw-bolder display-6 text-primary mb-2">
+            <i class="fas fa-graduation-cap me-2"></i>Join LMS Platform
+        </h1>
+        <p class="lead text-muted mb-0">Create your free account and start learning today.</p>
+    </div>
+</header>
+
+<div class="row justify-content-center mb-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm border-start border-5 border-primary">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold text-primary mb-4">
+                    <i class="fas fa-user-plus me-2"></i>Student registration
+                </h2>
+
+                <?php if (isset($data['error'])): ?>
+                    <div class="alert alert-danger py-2 small" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i><?= htmlspecialchars($data['error']) ?>
                     </div>
-                    <div class="card-body">
-                        
-                        <?php if (isset($data['error'])): ?>
-                            <div class="alert alert-danger">
-                                <?= $data['error'] ?>
-                            </div>
-                        <?php endif; ?>
+                <?php endif; ?>
 
-                        <form action="/LMS_Project/public/auth/store" method="POST">
-                            
-                            <div class="mb-3">
-                                <label for="fullname" class="form-label">Full Name</label>
-                                <input type="text" name="fullname" id="fullname" class="form-control" placeholder="John Doe" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="********" required>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Register Now</button>
-                            </div>
-
-                        </form>
+                <form action="/LMS_Project/public/auth/store" method="POST">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label small text-muted fw-semibold text-uppercase">Full name</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-user text-muted"></i></span>
+                            <input type="text" name="fullname" id="fullname" class="form-control border-start-0" placeholder="John Doe" value="<?= isset($data['fullname']) ? htmlspecialchars($data['fullname']) : '' ?>" required>
+                        </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <small>Already have an account? <a href="/LMS_Project/public/auth/login">Login here</a></small>
+                    <div class="mb-3">
+                        <label for="email" class="form-label small text-muted fw-semibold text-uppercase">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-envelope text-muted"></i></span>
+                            <input type="email" name="email" id="email" class="form-control border-start-0" placeholder="john@example.com" value="<?= isset($data['email']) ? htmlspecialchars($data['email']) : '' ?>" required>
+                        </div>
                     </div>
-                </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label small text-muted fw-semibold text-uppercase">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
+                            <input type="password" name="password" id="password" class="form-control border-start-0" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary fw-bold shadow-sm">
+                            <i class="fas fa-user-plus me-2"></i>Register now
+                        </button>
+                        <a href="/LMS_Project/public/auth/login" class="btn btn-outline-primary">
+                            <i class="fas fa-sign-in-alt me-2"></i>Already have an account? Log in
+                        </a>
+                    </div>
+                </form>
+                <hr class="my-3">
+                <p class="small text-center text-muted mb-0">
+                    <a href="/LMS_Project/public/home/index" class="text-primary text-decoration-none"><i class="fas fa-arrow-left me-1"></i>Back to home</a>
+                </p>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once '../app/Views/inc/footer.php'; ?>

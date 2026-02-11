@@ -11,8 +11,13 @@ class CourseController extends Controller {
 
         $courseModel = $this->model('CourseModel');
         $myCourses = $courseModel->getCoursesByInstructor($_SESSION['user_id']);
+        $stats = $courseModel->getInstructorStats($_SESSION['user_id']);
 
-        $this->view('courses/my_courses', ['title' => 'Instructor Dashboard', 'courses' => $myCourses]);
+        $this->view('courses/my_courses', [
+            'title' => 'Instructor Dashboard',
+            'courses' => $myCourses,
+            'stats' => $stats
+        ]);
     }
 
     public function create() {

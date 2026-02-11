@@ -64,11 +64,12 @@ class GradeModel {
             $stmt2->execute([$cId, $student_id, $cId, $student_id]);
             $completedItems = $stmt2->fetchColumn();
 
-            // Tính phần trăm
+            // Tính phần trăm (giới hạn 0–100)
             if ($totalItems > 0) {
-                $course['progress'] = round(($completedItems / $totalItems) * 100);
+                $raw = round(($completedItems / $totalItems) * 100);
+                $course['progress'] = min(100, max(0, (int) $raw));
             } else {
-                $course['progress'] = 0; // Khóa học chưa có bài tập nào
+                $course['progress'] = 0;
             }
         }
         return $courses;
