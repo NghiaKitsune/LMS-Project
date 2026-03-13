@@ -74,7 +74,7 @@ class QuizController extends Controller {
             $correctCount = 0;
             $userAnswers = $_POST['answers'] ?? []; // Mảng đáp án user chọn: [question_id => option_id]
 
-            // Thuật toán chấm điểm
+            // Thuật toán chấm điểm tự động
             foreach ($questions as $q) {
                 // Tìm đáp án đúng trong Database
                 $correctOptionId = null;

@@ -57,7 +57,7 @@ class GradeModel {
             $stmt1->execute([$cId, $cId]);
             $totalItems = $stmt1->fetchColumn();
 
-            // Đếm số bài đã làm (Completed Items)
+            
             $stmt2 = $this->conn->prepare("SELECT 
                 (SELECT COUNT(*) FROM submissions s JOIN assignments a ON s.assignment_id = a.id WHERE a.course_id = ? AND s.student_id = ?) + 
                 (SELECT COUNT(*) FROM quiz_attempts qa JOIN quizzes q ON qa.quiz_id = q.id WHERE q.course_id = ? AND qa.user_id = ?) as completed");
