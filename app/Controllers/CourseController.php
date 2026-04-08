@@ -2,6 +2,13 @@
 class CourseController extends Controller {
 
     // --- GROUP 1: INSTRUCTOR ---
+    
+    // Xử lý mặc định nếu URL trỏ vào course/ mà không có method (hoặc method sai)
+    public function index() {
+        // Chuyển hướng người dùng về trang chủ (nơi đang hiển thị danh sách khóa học)
+        header('Location: /LMS_Project/public/home/index');
+        exit;
+    }
 
     public function my_courses() {
         if (!isset($_SESSION['user_id'])) { header('Location: /LMS_Project/public/auth/login'); exit; }
@@ -153,11 +160,10 @@ class CourseController extends Controller {
             'title' => $course['title'],
             'course' => $course,
             'isEnrolled' => $isEnrolled,
-            'isOwner' => $isOwner, // <-- Truyền thêm biến này sang View
-        'course' => $course,
-        'assignments' => $assignments,
-        'quizzes' => $quizModel->getQuizzesByCourse($id)
-            ]);
+            'isOwner' => $isOwner,
+            'assignments' => $assignments,
+            'quizzes' => $quizModel->getQuizzesByCourse($id)
+        ]);
     }
 
     public function enroll($course_id) {

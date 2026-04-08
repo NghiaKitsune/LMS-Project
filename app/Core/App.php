@@ -29,13 +29,20 @@ class App {
         // 3. Lấy tham số còn lại
         $this->params = $url ? array_values($url) : [];
 
-        // 4. Gọi hàm chạy
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        // 4. Kiểm tra trước khi gọi để tránh Fatal Error (gãy layout)
+        if (is_callable([$this->controller, $this->method])) {
+            call_user_func_array([$this->controller, $this->method], $this->params);
+        } else {
+            // Fallback an toàn về trang chủ thay vì crash website
+            header('Location: /LMS_Project/public/home/index');
+            exit;
+        }
     }
 
     public function parseUrl() {
         if (isset($_GET['url'])) {
             return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
+        return [];
     }
 }

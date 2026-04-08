@@ -2,7 +2,7 @@
 class Database {
     private $host = 'localhost';
     private $user = 'root';
-    private $pass = ''; // XAMPP mặc định pass rỗng, nếu bạn có set pass thì điền vào
+    private $pass = ''; // XAMPP default is empty, set your password here if needed
     private $dbname = 'lms_db';
 
     public function connect() {
@@ -12,7 +12,7 @@ class Database {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (PDOException $e) {
-            die("Lỗi kết nối Database: " . $e->getMessage());
+            die("Database Connection Error: " . $e->getMessage());
         }
     }
 }
