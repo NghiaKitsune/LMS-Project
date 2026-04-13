@@ -37,9 +37,8 @@ Start your Apache and MySQL modules. Open your web browser and navigate to:
 `http://localhost/LMS_Project/public/`
 
 ## 👥 Testing Accounts
-If you imported the dummy data, you can authenticate using these basic profiles:
+If you imported the dummy data, you can authenticate using these basic profiles. The default password for all test accounts is **`123456`**.
+
 - **Admin Role**: `admin@gmail.com`
 - **Instructor Role**: `sarah@lms.com` or `dev@test.com`
 - **Student Role**: `new@gmail.com` or `alice@lms.com`
-
-*(Passwords are typically hashed, so test accounts might require manual registration or resetting if you don't know the default raw password).*
