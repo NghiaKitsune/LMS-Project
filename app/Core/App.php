@@ -33,9 +33,9 @@ class App {
         if (is_callable([$this->controller, $this->method])) {
             call_user_func_array([$this->controller, $this->method], $this->params);
         } else {
-            // Fallback an toàn về trang chủ thay vì crash website
-            header('Location: /LMS_Project/public/home/index');
-            exit;
+            // Proper 404 handling
+            http_response_code(404);
+            die("404 Not Found - Controller or Method does not exist.");
         }
     }
 

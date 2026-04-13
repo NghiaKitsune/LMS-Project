@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Define Base URL for dynamic routing
+define('BASE_URL', '/LMS_Project/public');
+
 // Nạp các file Core
 require_once '../app/Config/Database.php';
 require_once '../app/Core/Controller.php';

@@ -76,13 +76,22 @@
                     <form action="/LMS_Project/public/assignment/upload/<?= $data['assignment']['id'] ?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label class="form-label fw-bold">Upload your work (PDF, Zip, Docx)</label>
-                            <input type="file" name="file_upload" class="form-control form-control-lg" required>
+                            <div class="position-relative">
+                                <input type="file" id="fileUpload" name="file_upload" class="form-control form-control-lg" required>
+                                <small class="form-text text-muted d-block mt-2" id="fileName">No file chosen</small>
+                            </div>
                             <div class="form-text">Max file size: 10MB. Allowed formats: .pdf, .zip, .doc, .docx</div>
                         </div>
                         <button type="submit" class="btn btn-primary fw-bold btn-lg w-100">
                             <i class="fas fa-paper-plane me-2"></i> Submit Assignment
                         </button>
                     </form>
+                    <script>
+                        document.getElementById('fileUpload').addEventListener('change', function(e) {
+                            const fileName = e.target.files.length > 0 ? e.target.files[0].name : 'No file chosen';
+                            document.getElementById('fileName').textContent = fileName;
+                        });
+                    </script>
                 <?php endif; ?>
             </div>
         </div>

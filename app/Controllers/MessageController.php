@@ -4,7 +4,7 @@ class MessageController extends Controller {
     // 1. Xem danh sách tin nhắn (Inbox)
     public function index() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
@@ -33,7 +33,7 @@ class MessageController extends Controller {
     // 2. Xem chi tiết & Đánh dấu đã đọc
     public function detail($id) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
@@ -52,7 +52,7 @@ class MessageController extends Controller {
         $message = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$message) {
-            die("Message not found or access denied.");
+            die("<script>alert('Message not found or access denied.'); history.back();</script>");
         }
 
         // Cập nhật trạng thái đã đọc (is_read = 1)
@@ -71,7 +71,7 @@ class MessageController extends Controller {
     
     // 3. Xóa tin nhắn
     public function delete($id) {
-        if (!isset($_SESSION['user_id'])) header('Location: /LMS_Project/public/auth/login');
+        if (!isset($_SESSION['user_id'])) header('Location: ' . BASE_URL . '/auth/login');
 
         require_once '../app/Config/Database.php';
         $db = new Database();
@@ -80,6 +80,6 @@ class MessageController extends Controller {
         $stmt = $conn->prepare("DELETE FROM messages WHERE id = ? AND receiver_id = ?");
         $stmt->execute([$id, $_SESSION['user_id']]);
 
-        header('Location: /LMS_Project/public/message/index');
+        header('Location: ' . BASE_URL . '/message/index');
     }
 }

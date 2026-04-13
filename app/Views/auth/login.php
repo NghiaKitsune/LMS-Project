@@ -42,7 +42,7 @@
                         <label for="password" class="form-label small text-muted fw-semibold text-uppercase">Password</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
-                            <input type="password" name="password" id="password" class="form-control border-start-0" placeholder="••••••••" required>
+                            <input type="password" name="password" id="password" class="form-control border-start-0" placeholder="••••••••" required autocomplete="off">
                         </div>
                     </div>
                     <div class="d-grid gap-2">

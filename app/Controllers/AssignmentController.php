@@ -5,7 +5,7 @@ class AssignmentController extends Controller {
 
     public function __construct() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
     }
@@ -13,7 +13,7 @@ class AssignmentController extends Controller {
     // 1. Hiển thị Form tạo bài tập (Chỉ GV)
     public function create($course_id) {
         // Check quyền GV (hoặc Admin)
-        if ($_SESSION['user_role'] == 'student') die("Access Denied");
+        if ($_SESSION['user_role'] == 'student') die("<script>alert('Access Denied'); window.location.href='" . BASE_URL . "/home/index';</script>");
         
         $this->view('assignments/create', ['course_id' => $course_id]);
     }
@@ -36,7 +36,7 @@ class AssignmentController extends Controller {
         $assignModel = $this->model('AssignmentModel');
         $assignment = $assignModel->getAssignmentById($id);
 
-        if (!$assignment) die("Assignment not found");
+        if (!$assignment) die("<script>alert('Assignment not found'); history.back();</script>");
 
         // Dữ liệu gửi sang View
         $data = [
@@ -82,7 +82,7 @@ class AssignmentController extends Controller {
 
     // 5. Giảng viên chấm điểm
     public function grade() {
-        if ($_SESSION['user_role'] == 'student') die("Access Denied");
+        if ($_SESSION['user_role'] == 'student') die("<script>alert('Access Denied'); window.location.href='" . BASE_URL . "/home/index';</script>");
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $submission_id = $_POST['submission_id'];

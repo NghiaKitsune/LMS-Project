@@ -6,7 +6,7 @@ class SupportController extends Controller {
     public function __construct() {
         // Phải đăng nhập mới được gửi hỗ trợ
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
     }
@@ -27,7 +27,7 @@ class SupportController extends Controller {
             
             if ($supportModel->createTicket($user_id, $subject, $message)) {
                 // Gửi xong thì báo thành công
-                header('Location: /LMS_Project/public/support/index?status=sent');
+                header('Location: ' . BASE_URL . '/support/index?status=sent');
             } else {
                 echo "Error sending request.";
             }

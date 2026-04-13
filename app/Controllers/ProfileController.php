@@ -6,7 +6,7 @@ class ProfileController extends Controller {
     public function __construct() {
         // Kiểm tra đăng nhập
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
     }
@@ -22,7 +22,7 @@ class ProfileController extends Controller {
         $user = $userModel->getUserById($_SESSION['user_id']);
 
         if (!$user) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
@@ -34,7 +34,7 @@ class ProfileController extends Controller {
     // [NEW] Sổ điểm điện tử & Tiến độ
     public function grades() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
@@ -61,7 +61,7 @@ class ProfileController extends Controller {
     }
     public function notifications() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 

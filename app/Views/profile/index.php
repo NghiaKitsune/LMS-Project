@@ -104,7 +104,7 @@
                     </a>
                 </div>
                 <div class="col-12">
-                    <a href="#" class="btn btn-outline-dark fw-bold py-2 shadow-sm w-100 mt-2" onclick="alert('Module quản lý Support Ticket dành cho Admin đang phát triển!')">
+                    <a href="#" class="btn btn-outline-dark fw-bold py-2 shadow-sm w-100 mt-2" onclick="alert('Support Ticket Management module for Admin is under development!')">
                         <i class="fas fa-headset me-2"></i> Manage Support Tickets (Coming Soon)
                     </a>
                 </div>

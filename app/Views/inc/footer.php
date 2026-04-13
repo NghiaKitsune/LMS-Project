@@ -9,9 +9,9 @@
 
             <div class="col-md-6 text-md-end">
                 <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><a href="#" class="text-white-50 text-decoration-none hover-white">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="javascript:alert('Privacy Policy is currently being drafted.')" class="text-white-50 text-decoration-none hover-white">Privacy Policy</a></li>
                     <li class="list-inline-item text-white-50">|</li>
-                    <li class="list-inline-item"><a href="#" class="text-white-50 text-decoration-none hover-white">Terms of Service</a></li>
+                    <li class="list-inline-item"><a href="javascript:alert('Terms of Service is currently being drafted.')" class="text-white-50 text-decoration-none hover-white">Terms of Service</a></li>
                     <li class="list-inline-item text-white-50">|</li>
                     <li class="list-inline-item"><a href="/LMS_Project/public/support/index" class="text-warning text-decoration-none fw-bold">Support</a></li>
                 </ul>

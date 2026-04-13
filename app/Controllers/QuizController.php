@@ -5,14 +5,14 @@ class QuizController extends Controller {
 
     public function __construct() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
     }
 
     // 1. Hiển thị form tạo Quiz (GV)
     public function create($course_id) {
-        if ($_SESSION['user_role'] == 'student') die("Access Denied");
+        if ($_SESSION['user_role'] == 'student') die("<script>alert('Access Denied'); window.location.href='" . BASE_URL . "/home/index';</script>");
         $this->view('quiz/create', ['course_id' => $course_id]);
     }
 
@@ -54,7 +54,7 @@ class QuizController extends Controller {
         $quiz = $quizModel->getQuizById($id);
         $questions = $quizModel->getFullQuizData($id);
 
-        if (!$quiz) die("Quiz not found");
+        if (!$quiz) die("<script>alert('Quiz not found'); history.back();</script>");
 
         $this->view('quiz/take', [
             'quiz' => $quiz,

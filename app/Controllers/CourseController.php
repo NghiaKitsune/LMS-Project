@@ -6,14 +6,14 @@ class CourseController extends Controller {
     // Xử lý mặc định nếu URL trỏ vào course/ mà không có method (hoặc method sai)
     public function index() {
         // Chuyển hướng người dùng về trang chủ (nơi đang hiển thị danh sách khóa học)
-        header('Location: /LMS_Project/public/home/index');
+        header('Location: ' . BASE_URL . '/home/index');
         exit;
     }
 
     public function my_courses() {
-        if (!isset($_SESSION['user_id'])) { header('Location: /LMS_Project/public/auth/login'); exit; }
+        if (!isset($_SESSION['user_id'])) { header('Location: ' . BASE_URL . '/auth/login'); exit; }
         if ($_SESSION['user_role'] !== 'instructor' && $_SESSION['user_role'] !== 'admin') {
-            header('Location: /LMS_Project/public/course/my_learning'); exit;
+            header('Location: ' . BASE_URL . '/course/my_learning'); exit;
         }
 
         $courseModel = $this->model('CourseModel');
@@ -29,7 +29,7 @@ class CourseController extends Controller {
 
     public function create() {
         if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] !== 'instructor' && $_SESSION['user_role'] !== 'admin')) {
-            header('Location: /LMS_Project/public/home/index'); exit;
+            header('Location: ' . BASE_URL . '/home/index'); exit;
         }
         $courseModel = $this->model('CourseModel');
         $this->view('courses/create', ['title' => 'Create New Course', 'categories' => $courseModel->getCategories()]);
@@ -40,7 +40,7 @@ class CourseController extends Controller {
             
             // 1. Kiểm tra quyền (Authentication Check)
             if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] !== 'instructor' && $_SESSION['user_role'] !== 'admin')) {
-                die("Unauthorized Access");
+                die("<script>alert('Unauthorized Access'); window.location.href='" . BASE_URL . "/home/index';</script>");
             }
             
             // 2. Lấy và làm sạch dữ liệu
@@ -49,7 +49,7 @@ class CourseController extends Controller {
 
             // --- [FIX] VALIDATE DATA (Chặn giá âm) ---
             if ($price < 0) {
-                die("Error: Price cannot be negative!");
+                die("<script>alert('Error: Price cannot be negative!'); history.back();</script>");
             }
             // -----------------------------------------
 
@@ -68,13 +68,13 @@ class CourseController extends Controller {
                     $thumbnail = $fileName;
                 } else {
                     // Báo lỗi tiếng Anh nếu file sai định dạng
-                    die("Error: Invalid file format! Only JPG, JPEG, PNG, WEBP allowed.");
+                    die("<script>alert('Error: Invalid file format!'); history.back();</script>");
                 }
             }
 
             // 4. Lưu vào Database
             if ($this->model('CourseModel')->createCourse($title, $slug, $_POST['description'], $price, $thumbnail, $_SESSION['user_id'], $_POST['category_id'])) {
-                header('Location: /LMS_Project/public/course/my_courses?status=created');
+                header('Location: ' . BASE_URL . '/course/my_courses?status=created');
             } else {
                 echo "Error creating course. Please try again.";
             }
@@ -83,7 +83,7 @@ class CourseController extends Controller {
 
     // --- QUẢN LÝ BÀI HỌC (LESSONS) - MỚI BỔ SUNG ---
     public function add_lesson($course_id) {
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'instructor') die("Unauthorized");
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'instructor') die("<script>alert('Unauthorized Access'); window.location.href='" . BASE_URL . "/home/index';</script>");
         
         $course = $this->model('CourseModel')->getCourseById($course_id);
         // Load bài học cũ để hiển thị
@@ -101,7 +101,7 @@ class CourseController extends Controller {
             
             // 1. Kiểm tra quyền (Auth Check)
             if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'instructor') {
-                die("Unauthorized Access");
+                die("<script>alert('Unauthorized Access'); window.location.href='" . BASE_URL . "/home/index';</script>");
             }
 
             // --- [FIX] ROBUST YOUTUBE URL HANDLING (Xử lý link Youtube thông minh) ---
@@ -119,10 +119,10 @@ class CourseController extends Controller {
                 $this->model('LessonModel')->addLesson($course_id, $_POST['title'], $final_url);
                 
                 // Chuyển hướng kèm thông báo thành công
-                header('Location: /LMS_Project/public/course/add_lesson/' . $course_id . '?status=success');
+                header('Location: ' . BASE_URL . '/course/add_lesson/' . $course_id . '?status=success');
             } else {
                 // Báo lỗi tiếng Anh nếu link không hợp lệ
-                die("Error: Invalid YouTube URL! Please use a valid link (e.g., https://youtu.be/...)");
+                die("<script>alert('Error: Invalid YouTube URL!'); history.back();</script>");
             }
         }
     }
@@ -138,7 +138,7 @@ class CourseController extends Controller {
     $assignments = $assignmentModel->getAssignmentsByCourse($id);
     $quizModel = $this->model('QuizModel');
         if (!$course) {
-            header('Location: /LMS_Project/public/home/index');
+            header('Location: ' . BASE_URL . '/home/index');
             exit;
         }
 
@@ -167,18 +167,18 @@ class CourseController extends Controller {
     }
 
     public function enroll($course_id) {
-        if (!isset($_SESSION['user_id'])) { header('Location: /LMS_Project/public/auth/login'); exit; }
+        if (!isset($_SESSION['user_id'])) { header('Location: ' . BASE_URL . '/auth/login'); exit; }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $courseModel = $this->model('CourseModel');
             if (!$courseModel->isEnrolled($_SESSION['user_id'], $course_id)) {
                 $courseModel->enrollStudent($_SESSION['user_id'], $course_id);
             }
-            header('Location: /LMS_Project/public/course/my_learning?status=success');
+            header('Location: ' . BASE_URL . '/course/my_learning?status=success');
         }
     }
 
     public function my_learning() {
-        if (!isset($_SESSION['user_id'])) { header('Location: /LMS_Project/public/auth/login'); exit; }
+        if (!isset($_SESSION['user_id'])) { header('Location: ' . BASE_URL . '/auth/login'); exit; }
         $myCourses = $this->model('CourseModel')->getEnrolledCourses($_SESSION['user_id']);
         $this->view('courses/my_learning', ['title' => 'My Learning', 'courses' => $myCourses]);
     }
@@ -186,7 +186,7 @@ class CourseController extends Controller {
    public function learn($course_id) {
         // 1. Check đăng nhập
         if (!isset($_SESSION['user_id'])) { 
-            header('Location: /LMS_Project/public/auth/login'); 
+            header('Location: ' . BASE_URL . '/auth/login'); 
             exit; 
         }
         
@@ -195,7 +195,7 @@ class CourseController extends Controller {
         // 2. Lấy thông tin khóa học
         $course = $courseModel->getCourseById($course_id);
         if (!$course) {
-            die("Course not found");
+            die("<script>alert('Course not found!'); window.location.href='" . BASE_URL . "/home/index';</script>");
         }
 
         // 3. Kiểm tra quyền (Đã mua hoặc là Chủ khóa học)
@@ -205,7 +205,7 @@ class CourseController extends Controller {
 
         if (!$isEnrolled && !$isOwner && !$isAdmin) { 
             // Chưa mua -> Đá về trang chi tiết
-            header('Location: /LMS_Project/public/course/detail/' . $course_id . '?error=enroll_required'); 
+            header('Location: ' . BASE_URL . '/course/detail/' . $course_id . '?error=enroll_required'); 
             exit; 
         }
 
@@ -245,7 +245,7 @@ class CourseController extends Controller {
     public function edit($id) {
         // a. Check đăng nhập
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
@@ -253,7 +253,7 @@ class CourseController extends Controller {
         $course = $courseModel->getCourseById($id);
 
         if (!$course) {
-            die("Error: Course not found!");
+            die("<script>alert('Error: Course not found!'); window.location.href='" . BASE_URL . "/home/index';</script>");
         }
 
         // b. [BẢO MẬT] Kiểm tra quyền sở hữu
@@ -262,7 +262,7 @@ class CourseController extends Controller {
 
         if (!$isOwner && !$isAdmin) {
             // Nếu không phải chủ -> Đá về dashboard kèm thông báo lỗi
-            die("Unauthorized: You do not have permission to edit this course.");
+            die("<script>alert('Unauthorized: You do not have permission to edit this course.'); window.location.href='" . BASE_URL . "/home/index';</script>");
         }
 
         // c. Nếu qua cửa -> Cho vào sửa
@@ -277,7 +277,7 @@ class CourseController extends Controller {
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
-            if (!isset($_SESSION['user_id'])) die("Unauthorized Access");
+            if (!isset($_SESSION['user_id'])) die("<script>alert('Unauthorized Access'); window.location.href='" . BASE_URL . "/home/index';</script>");
 
             $courseModel = $this->model('CourseModel');
             $course = $courseModel->getCourseById($id);
@@ -287,7 +287,7 @@ class CourseController extends Controller {
             $isAdmin = ($_SESSION['user_role'] === 'admin');
 
             if (!$isOwner && !$isAdmin) {
-                die("Unauthorized: You cannot update this course.");
+                die("<script>alert('Unauthorized: You cannot update this course.'); window.location.href='" . BASE_URL . "/home/index';</script>");
             }
 
             // b. Lấy dữ liệu từ Form
@@ -298,7 +298,7 @@ class CourseController extends Controller {
             $slug = $courseModel->createSlug($title); // Tạo lại slug mới theo tên mới
 
             // Validate giá tiền
-            if ($price < 0) die("Error: Price cannot be negative!");
+            if ($price < 0) die("<script>alert('Error: Price cannot be negative!'); history.back();</script>");
 
             // c. Xử lý Upload ảnh (Nếu có thay ảnh mới)
             $thumbnail = null; // Mặc định là null
@@ -316,7 +316,7 @@ class CourseController extends Controller {
             // d. Gọi Model cập nhật
             if ($courseModel->updateCourse($id, $title, $slug, $description, $price, $thumbnail, $category_id)) {
                 // Thành công -> Về trang danh sách
-                header('Location: /LMS_Project/public/course/my_courses?status=updated');
+                header('Location: ' . BASE_URL . '/course/my_courses?status=updated');
             } else {
                 echo "Error updating course.";
             }
@@ -326,26 +326,26 @@ class CourseController extends Controller {
     // 3. Xử lý Xóa (GET hoặc POST)
     public function delete($id) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/auth/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
         $courseModel = $this->model('CourseModel');
         $course = $courseModel->getCourseById($id);
 
-        if (!$course) die("Course not found");
+        if (!$course) die("<script>alert('Course not found!'); window.location.href='" . BASE_URL . "/home/index';</script>");
 
         // a. [BẢO MẬT] Kiểm tra quyền sở hữu
         $isOwner = ($_SESSION['user_id'] == $course['instructor_id']);
         $isAdmin = ($_SESSION['user_role'] === 'admin');
 
         if (!$isOwner && !$isAdmin) {
-            die("Unauthorized: You cannot delete this course.");
+            die("<script>alert('Unauthorized: You cannot delete this course.'); window.location.href='" . BASE_URL . "/home/index';</script>");
         }
 
         // b. Xóa
         if ($courseModel->deleteCourse($id)) {
-            header('Location: /LMS_Project/public/course/my_courses?status=deleted');
+            header('Location: ' . BASE_URL . '/course/my_courses?status=deleted');
         } else {
             echo "Error deleting course.";
         }

@@ -5,7 +5,7 @@ class AuthController extends Controller {
     public function register() {
         // Check if already logged in -> redirect to dashboard
         if (isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/home/index');
+            header('Location: ' . BASE_URL . '/home/index');
             exit;
         }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller {
         // 6. Create User
         if ($userModel->register($fullname, $email, $hashedPassword)) {
             // Success -> Redirect to Login
-            header('Location: /LMS_Project/public/auth/login?status=success');
+            header('Location: ' . BASE_URL . '/auth/login?status=success');
         } else {
             // Failed
             $this->view('auth/register', [
@@ -63,7 +63,7 @@ class AuthController extends Controller {
     public function login() {
         // Nếu đang đăng nhập rồi thì đá về trang chủ, không cho vào trang login nữa
         if (isset($_SESSION['user_id'])) {
-            header('Location: /LMS_Project/public/home/index');
+            header('Location: ' . BASE_URL . '/home/index');
             exit;
         }
 
@@ -103,7 +103,7 @@ class AuthController extends Controller {
             $_SESSION['user_avatar'] = $user['avatar'];
 
             // Chuyển hướng về trang chủ (Dashboard)
-            header('Location: /LMS_Project/public/home/index');
+            header('Location: ' . BASE_URL . '/home/index');
             exit;
 
         } else {
@@ -122,7 +122,7 @@ class AuthController extends Controller {
         session_destroy();
 
         // Quay về trang Login
-        header('Location: /LMS_Project/public/auth/login');
+        header('Location: ' . BASE_URL . '/auth/login');
         exit;
     }
     
