@@ -27,7 +27,7 @@ class AssignmentController extends Controller {
             $deadline = $_POST['deadline'];
 
             $this->model('AssignmentModel')->createAssignment($course_id, $title, $description, $deadline);
-            header("Location: /LMS_Project/public/course/detail/$course_id");
+            header("Location: " . BASE_URL . "/course/detail/$course_id");
         }
     }
 
@@ -72,7 +72,8 @@ class AssignmentController extends Controller {
 
                 if (move_uploaded_file($_FILES["file_upload"]["tmp_name"], $targetFilePath)) {
                     $this->model('AssignmentModel')->submitWork($id, $_SESSION['user_id'], $fileName);
-                    header("Location: /LMS_Project/public/assignment/detail/$id?status=success");
+                    flash_set('Assignment submitted successfully.');
+                    header("Location: " . BASE_URL . "/assignment/detail/$id");
                 } else {
                     echo "File upload failed.";
                 }
@@ -98,9 +99,10 @@ class AssignmentController extends Controller {
     $notiModel->createNotification(
         $student_id, 
         "Your assignment has been graded: " . $grade . "/100", 
-        "/LMS_Project/public/assignment/detail/" . $assignment_id
+        BASE_URL . "/assignment/detail/" . $assignment_id
     );
-            header("Location: /LMS_Project/public/assignment/detail/$assignment_id?status=graded");
+            flash_set('Assignment graded successfully.');
+            header("Location: " . BASE_URL . "/assignment/detail/$assignment_id");
         }
     }
 }

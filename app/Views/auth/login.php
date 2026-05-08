@@ -55,10 +55,10 @@
                 <a href="<?= BASE_URL ?>/auth/register">Đăng ký miễn phí</a>
             </p>
 
-            <?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
+            <?php $__flash = flash_get(); if ($__flash && $__flash['type'] === 'success'): ?>
                 <div class="auth-alert success">
                     <i class="fas fa-circle-check"></i>
-                    Đăng ký thành công! Hãy đăng nhập để tiếp tục.
+                    <?= e($__flash['message']) ?>
                 </div>
             <?php endif; ?>
 

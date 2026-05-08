@@ -9,7 +9,7 @@
         <h1 class="h3 text-primary fw-bold mb-1"><i class="fas fa-chart-line me-2"></i>Gradebook</h1>
         <p class="text-muted mb-0 small">Track your learning progress and achievements.</p>
     </div>
-    <a href="/LMS_Project/public/profile/index" class="btn btn-outline-primary btn-sm">
+    <a href="<?= BASE_URL ?>/profile/index" class="btn btn-outline-primary btn-sm">
         <i class="fas fa-arrow-left me-1"></i>Back to Profile
     </a>
 </header>
@@ -25,7 +25,7 @@
             <div class="card-body text-center py-5">
                 <i class="fas fa-graduation-cap fa-3x text-muted mb-3 opacity-25"></i>
                 <p class="text-muted mb-3">You haven't enrolled in any courses yet.</p>
-                <a href="/LMS_Project/public/home/index" class="btn btn-primary btn-sm">Browse Courses</a>
+                <a href="<?= BASE_URL ?>/home/index" class="btn btn-primary btn-sm">Browse Courses</a>
             </div>
         </div>
     <?php else: ?>
@@ -47,7 +47,7 @@
                             <div class="progress grades-progress-bar" role="progressbar" aria-valuenow="<?= $pct ?>" aria-valuemin="0" aria-valuemax="100">
                                 <div class="progress-bar" style="width: <?= $pct ?>%;"></div>
                             </div>
-                            <a href="/LMS_Project/public/course/learn/<?= (int) ($p['id'] ?? 0) ?>" class="btn btn-outline-primary btn-sm w-100 mt-3">
+                            <a href="<?= BASE_URL ?>/course/learn/<?= (int) ($p['id'] ?? 0) ?>" class="btn btn-outline-primary btn-sm w-100 mt-3">
                                 <i class="fas fa-play me-1"></i>Continue
                             </a>
                         </div>

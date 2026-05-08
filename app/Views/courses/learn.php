@@ -47,7 +47,7 @@
                     <h2 class="h6 card-header-title mb-0">
                         <i class="fas fa-list-ul me-2"></i>Course Content
                     </h2>
-                    <a href="/LMS_Project/public/course/my_learning" class="learn-back-btn">
+                    <a href="<?= BASE_URL ?>/course/my_learning" class="learn-back-btn">
                         <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -65,7 +65,7 @@
                                 $isActive = ($currentLesson && $currentLesson['id'] == $lesson['id']) ? 'active' : '';
                                 
                                 // Tạo link: Reload trang với tham số lesson_id
-                                $link = "/LMS_Project/public/course/learn/" . $data['course']['id'] . "?lesson_id=" . $lesson['id'];
+                                $link = BASE_URL . "/course/learn/" . $data['course']['id'] . "?lesson_id=" . $lesson['id'];
                             ?>
                             <a href="<?= $link ?>" class="list-group-item list-group-item-action <?= $isActive ?> d-flex align-items-center">
                                 <span class="me-2">

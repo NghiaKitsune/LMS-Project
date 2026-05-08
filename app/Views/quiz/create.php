@@ -2,7 +2,7 @@
 
 <div class="row justify-content-center mt-4 mb-5">
     <div class="col-md-8">
-        <form action="/LMS_Project/public/quiz/store" method="POST" id="quizForm">
+        <form action="<?= BASE_URL ?>/quiz/store" method="POST" id="quizForm">
             <input type="hidden" name="course_id" value="<?= $data['course_id'] ?>">
 
             <div class="card shadow border-0 mb-4">
@@ -29,7 +29,7 @@
                 </button>
                 
                 <div class="d-flex gap-2 mt-3">
-                    <a href="/LMS_Project/public/course/detail/<?= $data['course_id'] ?>" class="btn btn-secondary w-50">
+                    <a href="<?= BASE_URL ?>/course/detail/<?= $data['course_id'] ?>" class="btn btn-secondary w-50">
                         Cancel
                     </a>
                     <button type="submit" class="btn btn-success fw-bold w-50 shadow-sm">

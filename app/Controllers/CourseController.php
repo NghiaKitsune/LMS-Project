@@ -74,7 +74,8 @@ class CourseController extends Controller {
 
             // 4. Lưu vào Database
             if ($this->model('CourseModel')->createCourse($title, $slug, $_POST['description'], $price, $thumbnail, $_SESSION['user_id'], $_POST['category_id'])) {
-                header('Location: ' . BASE_URL . '/course/my_courses?status=created');
+                flash_set('Course created successfully.');
+                header('Location: ' . BASE_URL . '/course/my_courses');
             } else {
                 echo "Error creating course. Please try again.";
             }
@@ -119,7 +120,8 @@ class CourseController extends Controller {
                 $this->model('LessonModel')->addLesson($course_id, $_POST['title'], $final_url);
                 
                 // Chuyển hướng kèm thông báo thành công
-                header('Location: ' . BASE_URL . '/course/add_lesson/' . $course_id . '?status=success');
+                flash_set('Lesson added successfully.');
+                header('Location: ' . BASE_URL . '/course/add_lesson/' . $course_id);
             } else {
                 // Báo lỗi tiếng Anh nếu link không hợp lệ
                 die("<script>alert('Error: Invalid YouTube URL!'); history.back();</script>");
@@ -173,7 +175,8 @@ class CourseController extends Controller {
             if (!$courseModel->isEnrolled($_SESSION['user_id'], $course_id)) {
                 $courseModel->enrollStudent($_SESSION['user_id'], $course_id);
             }
-            header('Location: ' . BASE_URL . '/course/my_learning?status=success');
+            flash_set('Enrolled successfully. Happy learning!');
+            header('Location: ' . BASE_URL . '/course/my_learning');
         }
     }
 
@@ -205,7 +208,8 @@ class CourseController extends Controller {
 
         if (!$isEnrolled && !$isOwner && !$isAdmin) { 
             // Chưa mua -> Đá về trang chi tiết
-            header('Location: ' . BASE_URL . '/course/detail/' . $course_id . '?error=enroll_required'); 
+            flash_set('You must enroll in this course to access it.', 'error');
+            header('Location: ' . BASE_URL . '/course/detail/' . $course_id);
             exit; 
         }
 
@@ -316,7 +320,8 @@ class CourseController extends Controller {
             // d. Gọi Model cập nhật
             if ($courseModel->updateCourse($id, $title, $slug, $description, $price, $thumbnail, $category_id)) {
                 // Thành công -> Về trang danh sách
-                header('Location: ' . BASE_URL . '/course/my_courses?status=updated');
+                flash_set('Course updated successfully.');
+                header('Location: ' . BASE_URL . '/course/my_courses');
             } else {
                 echo "Error updating course.";
             }
@@ -345,7 +350,8 @@ class CourseController extends Controller {
 
         // b. Xóa
         if ($courseModel->deleteCourse($id)) {
-            header('Location: ' . BASE_URL . '/course/my_courses?status=deleted');
+            flash_set('Course deleted successfully.');
+            header('Location: ' . BASE_URL . '/course/my_courses');
         } else {
             echo "Error deleting course.";
         }

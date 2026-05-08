@@ -18,17 +18,11 @@
             <p class="text-muted mb-0 small">Welcome back, Administrator</p>
         </div>
         <div>
-            <a href="/LMS_Project/public/home/index" class="btn btn-outline-primary fw-bold rounded-pill px-3 shadow-sm">
+            <a href="<?= BASE_URL ?>/home/index" class="btn btn-outline-primary fw-bold rounded-pill px-3 shadow-sm">
                 <i class="fas fa-eye"></i> Switch to Student View
             </a>
         </div>
     </div>
-
-    <?php if (isset($_GET['msg'])): ?>
-        <div class="alert alert-success shadow-sm mb-4">
-            <i class="fas fa-check-circle"></i> Action completed successfully!
-        </div>
-    <?php endif; ?>
 
     <div class="row mb-4">
         <div class="col-md-8">
@@ -102,8 +96,8 @@
                                     <td><?= htmlspecialchars($s['fullname']) ?></td>
                                     <td><?= htmlspecialchars($s['email']) ?></td>
                                     <td>
-                                        <a href="/LMS_Project/public/admin/edit_user/<?= $s['id'] ?>" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
-                                        <a href="/LMS_Project/public/admin/delete_user/<?= $s['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Ban this student?')">🚫 Ban</a>
+                                        <a href="<?= BASE_URL ?>/admin/edit_user/<?= $s['id'] ?>" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
+                                        <a href="<?= BASE_URL ?>/admin/delete_user/<?= $s['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Ban this student?')">🚫 Ban</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -126,8 +120,8 @@
                                     </td>
                                     <td><?= htmlspecialchars($i['email']) ?></td>
                                     <td>
-                                        <a href="/LMS_Project/public/admin/edit_user/<?= $i['id'] ?>" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
-                                        <a href="/LMS_Project/public/admin/delete_user/<?= $i['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Ban this instructor?')">🚫 Ban</a>
+                                        <a href="<?= BASE_URL ?>/admin/edit_user/<?= $i['id'] ?>" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
+                                        <a href="<?= BASE_URL ?>/admin/delete_user/<?= $i['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Ban this instructor?')">🚫 Ban</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -145,14 +139,14 @@
                                 <tr>
                                     <td><?= $c['id'] ?></td>
                                     <td>
-                                        <img src="/LMS_Project/public/assets/uploads/<?= $c['thumbnail'] ?>" width="40" class="rounded me-2">
+                                        <img src="<?= BASE_URL ?>/assets/uploads/<?= $c['thumbnail'] ?>" width="40" class="rounded me-2">
                                         <?= htmlspecialchars($c['title']) ?>
                                     </td>
                                     <td><?= htmlspecialchars($c['instructor_name']) ?></td>
                                     <td>$<?= $c['price'] ?></td>
                                     <td>
-                                        <a href="/LMS_Project/public/course/edit/<?= $c['id'] ?>" class="btn btn-sm btn-outline-warning">✏️ Force Edit</a>
-                                        <a href="/LMS_Project/public/admin/delete_course/<?= $c['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete course?')">🗑️ Delete</a>
+                                        <a href="<?= BASE_URL ?>/course/edit/<?= $c['id'] ?>" class="btn btn-sm btn-outline-warning">✏️ Force Edit</a>
+                                        <a href="<?= BASE_URL ?>/admin/delete_course/<?= $c['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete course?')">🗑️ Delete</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -197,7 +191,7 @@
                                         <td><?= date('d/m/Y', strtotime($t['created_at'])) ?></td>
                                         <td>
                                             <?php if($t['status'] == 'pending'): ?>
-                                                <a href="/LMS_Project/public/admin/resolve_ticket/<?= $t['id'] ?>" 
+                                                <a href="<?= BASE_URL ?>/admin/resolve_ticket/<?= $t['id'] ?>" 
                                                     class="btn btn-sm btn-outline-success fw-bold">
                                                     Mark Done
                                                 </a>

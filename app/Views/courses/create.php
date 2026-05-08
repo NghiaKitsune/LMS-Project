@@ -8,14 +8,14 @@
                     <h4 class="card-title mb-0 fw-bold text-primary">
                         <i class="fas fa-magic me-2"></i>Create New Course
                     </h4>
-                    <a href="/LMS_Project/public/course/my_courses" class="btn btn-sm btn-outline-secondary">
+                    <a href="<?= BASE_URL ?>/course/my_courses" class="btn btn-sm btn-outline-secondary">
                         <i class="fas fa-times"></i> Cancel
                     </a>
                 </div>
             </div>
             <div class="card-body p-4">
                 
-                <form action="/LMS_Project/public/course/store" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/course/store" method="POST" enctype="multipart/form-data">
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold">Course Title <span class="text-danger">*</span></label>

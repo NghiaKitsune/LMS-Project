@@ -13,7 +13,7 @@
                     <li class="list-inline-item text-white-50">|</li>
                     <li class="list-inline-item"><a href="javascript:alert('Terms of Service is currently being drafted.')" class="text-white-50 text-decoration-none hover-white">Terms of Service</a></li>
                     <li class="list-inline-item text-white-50">|</li>
-                    <li class="list-inline-item"><a href="/LMS_Project/public/support/index" class="text-warning text-decoration-none fw-bold">Support</a></li>
+                    <li class="list-inline-item"><a href="<?= BASE_URL ?>/support/index" class="text-warning text-decoration-none fw-bold">Support</a></li>
                 </ul>
                 <p class="small text-white-50 mt-2 mb-0">&copy; <?= date('Y') ?> Developed by <strong>Student BC00616</strong>. All Rights Reserved.</p>
             </div>

@@ -2,7 +2,7 @@
 
 <nav aria-label="breadcrumb" class="mt-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/LMS_Project/public/home/index" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?= BASE_URL ?>/home/index" class="text-decoration-none">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">My Profile</li>
     </ol>
 </nav>
@@ -19,7 +19,7 @@
     <div class="mb-4 position-relative d-inline-block">
         <?php 
             $avatar = !empty($data['user']['avatar']) 
-                ? '/LMS_Project/public/assets/uploads/' . $data['user']['avatar'] 
+                ? BASE_URL . '/assets/uploads/' . $data['user']['avatar'] 
                 : 'https://ui-avatars.com/api/?name=' . urlencode($data['user']['fullname']) . '&background=random&size=150';
         ?>
         <img src="<?= $avatar ?>" 
@@ -63,17 +63,17 @@
             
             <?php if($_SESSION['user_role'] === 'student'): ?>
                 <div class="col-12">
-                    <a href="/LMS_Project/public/profile/grades" class="btn btn-success fw-bold py-2 shadow-sm w-100">
+                    <a href="<?= BASE_URL ?>/profile/grades" class="btn btn-success fw-bold py-2 shadow-sm w-100">
                         <i class="fas fa-chart-line me-2"></i> View Gradebook & Progress
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="/LMS_Project/public/support/index" class="btn btn-warning fw-bold py-2 shadow-sm w-100 text-dark">
+                    <a href="<?= BASE_URL ?>/support/index" class="btn btn-warning fw-bold py-2 shadow-sm w-100 text-dark">
                         <i class="fas fa-life-ring me-2"></i> Need Help?
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="/LMS_Project/public/support/history" class="btn btn-outline-secondary fw-bold py-2 shadow-sm w-100">
+                    <a href="<?= BASE_URL ?>/support/history" class="btn btn-outline-secondary fw-bold py-2 shadow-sm w-100">
                         <i class="fas fa-history me-2"></i> Ticket History
                     </a>
                 </div>
@@ -81,17 +81,17 @@
 
             <?php if($_SESSION['user_role'] === 'instructor'): ?>
                 <div class="col-12">
-                    <a href="/LMS_Project/public/course/my_courses" class="btn btn-primary fw-bold py-2 shadow-sm w-100">
+                    <a href="<?= BASE_URL ?>/course/my_courses" class="btn btn-primary fw-bold py-2 shadow-sm w-100">
                         <i class="fas fa-chalkboard-teacher me-2"></i> Go to Instructor Dashboard
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="/LMS_Project/public/support/index" class="btn btn-outline-warning fw-bold py-2 shadow-sm w-100 text-dark">
+                    <a href="<?= BASE_URL ?>/support/index" class="btn btn-outline-warning fw-bold py-2 shadow-sm w-100 text-dark">
                         <i class="fas fa-bug me-2"></i> Report Issue
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="/LMS_Project/public/support/history" class="btn btn-outline-secondary fw-bold py-2 shadow-sm w-100">
+                    <a href="<?= BASE_URL ?>/support/history" class="btn btn-outline-secondary fw-bold py-2 shadow-sm w-100">
                         <i class="fas fa-history me-2"></i> My Reports
                     </a>
                 </div>
@@ -99,7 +99,7 @@
 
             <?php if($_SESSION['user_role'] === 'admin'): ?>
                 <div class="col-12">
-                    <a href="/LMS_Project/public/admin/dashboard" class="btn btn-danger fw-bold py-3 shadow-sm w-100">
+                    <a href="<?= BASE_URL ?>/admin/dashboard" class="btn btn-danger fw-bold py-3 shadow-sm w-100">
                         <i class="fas fa-cogs me-2"></i> Access System Administration
                     </a>
                 </div>

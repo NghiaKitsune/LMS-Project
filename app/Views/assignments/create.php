@@ -7,7 +7,7 @@
                 <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Create New Assignment</h4>
             </div>
             <div class="card-body p-4">
-                <form action="/LMS_Project/public/assignment/store" method="POST">
+                <form action="<?= BASE_URL ?>/assignment/store" method="POST">
                     <input type="hidden" name="course_id" value="<?= $data['course_id'] ?>">
                     
                     <div class="mb-3">
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="/LMS_Project/public/course/detail/<?= $data['course_id'] ?>" class="btn btn-secondary">
+                        <a href="<?= BASE_URL ?>/course/detail/<?= $data['course_id'] ?>" class="btn btn-secondary">
                             <i class="fas fa-arrow-left me-1"></i> Cancel
                         </a>
                         <button type="submit" class="btn btn-success fw-bold px-4">

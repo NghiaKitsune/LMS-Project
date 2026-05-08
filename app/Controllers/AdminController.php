@@ -53,7 +53,8 @@ class AdminController extends Controller {
 
             // Gọi Model cập nhật
             if ($this->model('AdminModel')->updateUser($id, $fullname, $email, $role, $password)) {
-                header('Location: ' . BASE_URL . '/admin/dashboard?msg=user_updated');
+                flash_set('User updated successfully.');
+                header('Location: ' . BASE_URL . '/admin/dashboard');
             } else {
                 echo "Error updating user.";
             }
@@ -63,7 +64,8 @@ class AdminController extends Controller {
     // 4. Xóa User (Ban thành viên)
     public function delete_user($id) {
         if ($this->model('AdminModel')->deleteUser($id)) {
-            header('Location: ' . BASE_URL . '/admin/dashboard?msg=user_deleted');
+            flash_set('User deleted successfully.');
+            header('Location: ' . BASE_URL . '/admin/dashboard');
         } else {
             echo "Error deleting user.";
         }
@@ -72,13 +74,15 @@ class AdminController extends Controller {
     // 5. Xóa Khóa học (Kiểm duyệt nội dung)
     public function delete_course($id) {
         if ($this->model('CourseModel')->deleteCourse($id)) {
-            header('Location: ' . BASE_URL . '/admin/dashboard?msg=course_deleted');
+            flash_set('Course deleted successfully.');
+            header('Location: ' . BASE_URL . '/admin/dashboard');
         }
     }
   
     // [NEW] Hàm xử lý Ticket
     public function resolve_ticket($id) {
         $this->model('SupportModel')->markAsResolved($id);
-        header('Location: ' . BASE_URL . '/admin/dashboard?msg=ticket_resolved');
+        flash_set('Ticket resolved successfully.');
+        header('Location: ' . BASE_URL . '/admin/dashboard');
     }
 }

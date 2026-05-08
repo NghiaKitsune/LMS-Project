@@ -8,21 +8,21 @@
                 <p class="lead mb-4 text-muted">Master PHP, IoT, C++ and more with our expert-led courses. Start learning at your own pace, anytime.</p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                     <?php if (!isset($_SESSION['user_id'])): ?>
-                        <a href="/LMS_Project/public/auth/register" class="btn btn-primary btn-lg px-4 shadow-sm">
+                        <a href="<?= BASE_URL ?>/auth/register" class="btn btn-primary btn-lg px-4 shadow-sm">
                             <i class="fas fa-rocket me-2"></i>Start Learning Today
                         </a>
-                        <a href="/LMS_Project/public/auth/login" class="btn btn-outline-primary btn-lg px-4">Login</a>
+                        <a href="<?= BASE_URL ?>/auth/login" class="btn btn-outline-primary btn-lg px-4">Login</a>
                     <?php else: ?>
                         <?php if($_SESSION['user_role'] === 'student'): ?>
-                            <a href="/LMS_Project/public/course/my_learning" class="btn btn-success btn-lg px-4 shadow-sm">
+                            <a href="<?= BASE_URL ?>/course/my_learning" class="btn btn-success btn-lg px-4 shadow-sm">
                                 <i class="fas fa-book-reader me-2"></i>Go to My Learning
                             </a>
                         <?php elseif($_SESSION['user_role'] === 'instructor'): ?>
-                            <a href="/LMS_Project/public/course/my_courses" class="btn btn-warning btn-lg px-4 shadow-sm text-dark fw-bold">
+                            <a href="<?= BASE_URL ?>/course/my_courses" class="btn btn-warning btn-lg px-4 shadow-sm text-dark fw-bold">
                                 <i class="fas fa-chalkboard-teacher me-2"></i>Go to Instructor Panel
                             </a>
                         <?php elseif($_SESSION['user_role'] === 'admin'): ?>
-                            <a href="/LMS_Project/public/admin/dashboard" class="btn btn-danger btn-lg px-4 shadow-sm">
+                            <a href="<?= BASE_URL ?>/admin/dashboard" class="btn btn-danger btn-lg px-4 shadow-sm">
                                 <i class="fas fa-user-shield me-2"></i>Go to Admin Dashboard
                             </a>
                         <?php endif; ?>
@@ -48,7 +48,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm course-card border-0 card-hover overflow-hidden">
                         <?php 
-                            $img = $course['thumbnail'] ? '/LMS_Project/public/assets/uploads/'.$course['thumbnail'] : 'https://via.placeholder.com/600x320?text=No+Image';
+                            $img = $course['thumbnail'] ? BASE_URL . '/assets/uploads/'.$course['thumbnail'] : 'https://via.placeholder.com/600x320?text=No+Image';
                         ?>
                         <div class="course-card-image position-relative">
                             <img src="<?= $img ?>" class="card-img-top" alt="<?= htmlspecialchars($course['title']) ?>">
@@ -69,7 +69,7 @@
                             </p>
                         </div>
                         <div class="card-footer bg-white border-top-0 pt-0 pb-3">
-                            <a href="/LMS_Project/public/course/detail/<?= $course['id'] ?>" class="btn btn-outline-primary btn-sm w-100">
+                            <a href="<?= BASE_URL ?>/course/detail/<?= $course['id'] ?>" class="btn btn-outline-primary btn-sm w-100">
                                 View Details
                             </a>
                         </div>

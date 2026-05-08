@@ -6,7 +6,7 @@
             
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="text-primary fw-bold"><i class="fas fa-bell me-2"></i>My Notifications</h3>
-                <a href="/LMS_Project/public/home/index" class="btn btn-outline-secondary btn-sm shadow-sm">
+                <a href="<?= BASE_URL ?>/home/index" class="btn btn-outline-secondary btn-sm shadow-sm">
                     <i class="fas fa-arrow-left me-1"></i> Back to Home
                 </a>
             </div>
@@ -19,7 +19,7 @@
                             <i class="far fa-bell-slash fa-3x text-muted mb-3 opacity-50"></i>
                             <h5 class="text-muted">You have no new notifications.</h5>
                             <p class="text-muted small">We'll let you know when something important happens.</p>
-                            <a href="/LMS_Project/public/course/my_learning" class="btn btn-sm btn-primary mt-2">
+                            <a href="<?= BASE_URL ?>/course/my_learning" class="btn btn-sm btn-primary mt-2">
                                 Go to My Courses
                             </a>
                         </div>
