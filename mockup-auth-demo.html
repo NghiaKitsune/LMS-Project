@@ -335,10 +335,70 @@
             margin-top: 6px;
         }
 
+        /* ─── MOBILE BRAND HEADER (hidden on desktop) ──── */
+        .mobile-brand-header {
+            display: none;
+        }
+
         /* ─── RESPONSIVE ────────────────────────────────── */
         @media (max-width: 768px) {
+            .auth-wrapper {
+                flex-direction: column;
+                min-height: calc(100vh - 45px);
+            }
             .auth-panel-left { display: none; }
-            .auth-panel-right { padding: 40px 24px; }
+            .auth-panel-right {
+                padding: 0 0 48px;
+                justify-content: flex-start;
+                align-items: stretch;
+                flex-direction: column;
+            }
+            .auth-form-box {
+                max-width: 100%;
+                margin: 0 16px;
+            }
+
+            /* Show compact brand header on mobile */
+            .mobile-brand-header {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 6px;
+                background: linear-gradient(135deg, #3b5bdb, #1971c2);
+                padding: 28px 24px 32px;
+                text-align: center;
+            }
+            .mobile-brand-header .mob-icon {
+                width: 52px; height: 52px;
+                background: rgba(255,255,255,.18);
+                border-radius: 16px;
+                display: flex; align-items: center; justify-content: center;
+                margin-bottom: 8px;
+            }
+            .mobile-brand-header .mob-icon i { color: #fff; font-size: 24px; }
+            .mobile-brand-header .mob-name {
+                font-size: 18px;
+                font-weight: 800;
+                color: #fff;
+                letter-spacing: 1.5px;
+            }
+            .mobile-brand-header .mob-tagline {
+                font-size: 12px;
+                color: rgba(255,255,255,.65);
+                letter-spacing: .5px;
+            }
+
+            /* Adjust form spacing on mobile */
+            .form-title { font-size: 22px; }
+            .auth-panel-right { background: #f8faff; }
+            .auth-form-box {
+                background: #fff;
+                border-radius: 16px;
+                padding: 28px 22px;
+                box-shadow: 0 2px 16px rgba(0,0,0,.07);
+                margin-top: 24px;
+            }
         }
     </style>
 </head>
@@ -395,6 +455,13 @@
 
     <!-- Right form panel -->
     <div class="auth-panel-right">
+        <!-- Mobile only: compact brand header -->
+        <div class="mobile-brand-header">
+            <div class="mob-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="mob-name">LMS PLATFORM</div>
+            <div class="mob-tagline">E-Learning System</div>
+        </div>
+
         <div class="auth-form-box">
             <p class="form-eyebrow">Welcome back</p>
             <h1 class="form-title">Đăng nhập</h1>
@@ -463,6 +530,11 @@
         <p class="panel-footer-note">© 2025 LMS Platform. All rights reserved.</p>
     </div>
     <div class="auth-panel-right">
+        <div class="mobile-brand-header">
+            <div class="mob-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="mob-name">LMS PLATFORM</div>
+            <div class="mob-tagline">E-Learning System</div>
+        </div>
         <div class="auth-form-box">
             <p class="form-eyebrow">Welcome back</p>
             <h1 class="form-title">Đăng nhập</h1>
@@ -530,6 +602,12 @@
 
     <!-- Right form panel -->
     <div class="auth-panel-right">
+        <div class="mobile-brand-header">
+            <div class="mob-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="mob-name">LMS PLATFORM</div>
+            <div class="mob-tagline">E-Learning System</div>
+        </div>
+
         <div class="auth-form-box">
             <p class="form-eyebrow">Get started</p>
             <h1 class="form-title">Tạo tài khoản</h1>
