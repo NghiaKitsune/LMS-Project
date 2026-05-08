@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Redesign — Demo Mockup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f0f4ff;
+            min-height: 100vh;
+        }
+
+        /* ─── DEMO SWITCHER ─────────────────────────────── */
+        .demo-bar {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .demo-bar span { opacity: .6; }
+        .demo-btn {
+            background: transparent;
+            border: 1px solid #45475a;
+            color: #cdd6f4;
+            border-radius: 6px;
+            padding: 4px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .demo-btn.active { background: #4c6ef5; border-color: #4c6ef5; color: #fff; }
+        .demo-btn:hover:not(.active) { border-color: #7c7f93; }
+
+        /* ─── AUTH WRAPPER ──────────────────────────────── */
+        .auth-wrapper {
+            min-height: calc(100vh - 45px);
+            display: flex;
+            align-items: stretch;
+        }
+
+        /* ─── LEFT PANEL (Branding) ─────────────────────── */
+        .auth-panel-left {
+            width: 42%;
+            background: linear-gradient(145deg, #3b5bdb 0%, #1971c2 50%, #0c4a6e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 52px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles */
+        .auth-panel-left::before {
+            content: '';
+            position: absolute;
+            width: 380px; height: 380px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+            top: -120px; right: -120px;
+        }
+        .auth-panel-left::after {
+            content: '';
+            position: absolute;
+            width: 260px; height: 260px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.05);
+            bottom: -80px; left: -60px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 56px;
+        }
+        .brand-logo .icon-wrap {
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,.18);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+        .brand-logo .icon-wrap i { color: #fff; font-size: 22px; }
+        .brand-logo .brand-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1.5px;
+        }
+        .brand-logo .brand-text small {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            opacity: .7;
+            text-transform: uppercase;
+        }
+
+        .panel-headline {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+        .panel-headline span { color: #93c5fd; }
+
+        .panel-sub {
+            color: rgba(255,255,255,.72);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255,255,255,.88);
+            font-size: 14px;
+        }
+        .feature-list li .feat-icon {
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,.12);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .feature-list li .feat-icon i { color: #93c5fd; font-size: 15px; }
+
+        .panel-footer-note {
+            margin-top: auto;
+            padding-top: 48px;
+            font-size: 12px;
+            color: rgba(255,255,255,.4);
+        }
+
+        /* ─── RIGHT PANEL (Form) ────────────────────────── */
+        .auth-panel-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            background: #fff;
+        }
+
+        .auth-form-box {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #4c6ef5;
+            margin-bottom: 8px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 36px;
+        }
+        .form-subtitle a { color: #4c6ef5; text-decoration: none; font-weight: 600; }
+        .form-subtitle a:hover { text-decoration: underline; }
+
+        /* Form fields */
+        .field-group { margin-bottom: 20px; }
+        .field-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: #374151;
+            margin-bottom: 7px;
+        }
+
+        .field-wrap {
+            position: relative;
+        }
+        .field-wrap .field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 15px;
+            pointer-events: none;
+        }
+        .field-wrap input {
+            width: 100%;
+            padding: 11px 14px 11px 42px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14.5px;
+            color: #1a1a2e;
+            background: #fafafa;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            outline: none;
+        }
+        .field-wrap input:focus {
+            border-color: #4c6ef5;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(76,110,245,.12);
+        }
+        .field-wrap input::placeholder { color: #c4c9d4; }
+
+        .toggle-pw {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color .2s;
+        }
+        .toggle-pw:hover { color: #4c6ef5; }
+
+        /* Remember / Forgot row */
+        .form-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            font-size: 13px;
+        }
+        .form-meta label { color: #4b5563; cursor: pointer; user-select: none; }
+        .form-meta a { color: #4c6ef5; text-decoration: none; }
+        .form-meta a:hover { text-decoration: underline; }
+        .form-check-input:checked { background-color: #4c6ef5; border-color: #4c6ef5; }
+
+        /* Submit button */
+        .btn-auth {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #4c6ef5, #3b5bdb);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s, opacity .2s;
+            box-shadow: 0 4px 14px rgba(76,110,245,.35);
+            letter-spacing: .3px;
+        }
+        .btn-auth:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(76,110,245,.45);
+        }
+        .btn-auth:active { transform: translateY(0); }
+        .btn-auth i { margin-right: 8px; }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: #d1d5db;
+            font-size: 12px;
+        }
+        .divider::before, .divider::after {
+            content: ''; flex: 1;
+            height: 1px; background: #f0f0f0;
+        }
+
+        /* Back to home */
+        .back-home {
+            text-align: center;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        .back-home a {
+            color: #6b7280;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .2s;
+        }
+        .back-home a:hover { color: #4c6ef5; }
+
+        /* Alert */
+        .auth-alert {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: 9px;
+            font-size: 13.5px;
+            margin-bottom: 22px;
+        }
+        .auth-alert.danger { background: #fff0f0; color: #c0392b; border: 1px solid #fecdcd; }
+        .auth-alert.success { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+        /* ─── REGISTER EXTRAS ───────────────────────────── */
+        .password-hint {
+            font-size: 11.5px;
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        /* ─── RESPONSIVE ────────────────────────────────── */
+        @media (max-width: 768px) {
+            .auth-panel-left { display: none; }
+            .auth-panel-right { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Demo switcher bar -->
+<div class="demo-bar">
+    <i class="fas fa-palette"></i>
+    <span>Mockup Preview —</span>
+    <button class="demo-btn active" onclick="showPage('login')">Login</button>
+    <button class="demo-btn" onclick="showPage('register')">Register</button>
+    <button class="demo-btn" onclick="showPage('error')">Login (Error state)</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: LOGIN
+════════════════════════════════════════════ -->
+<div id="page-login" class="auth-wrapper">
+
+    <!-- Left branding panel -->
+    <div class="auth-panel-left">
+        <div class="brand-logo">
+            <div class="icon-wrap"><i class="fas fa-graduation-cap"></i></div>
+            <div class="brand-text">
+                LMS PLATFORM
+                <small>E-Learning System</small>
+            </div>
+        </div>
+
+        <h2 class="panel-headline">Học không có<br><span>giới hạn.</span></h2>
+        <p class="panel-sub">Nền tảng học tập trực tuyến toàn diện — khoá học, bài tập, quiz và hơn thế nữa.</p>
+
+        <ul class="feature-list">
+            <li>
+                <div class="feat-icon"><i class="fas fa-book-open"></i></div>
+                Truy cập hàng trăm khoá học chất lượng cao
+            </li>
+            <li>
+                <div class="feat-icon"><i class="fas fa-tasks"></i></div>
+                Theo dõi tiến độ học tập theo thời gian thực
+            </li>
+            <li>
+                <div class="feat-icon"><i class="fas fa-comments"></i></div>
+                Tương tác trực tiếp với giảng viên
+            </li>
+            <li>
+                <div class="feat-icon"><i class="fas fa-certificate"></i></div>
+                Nhận chứng chỉ sau khi hoàn thành khoá học
+            </li>
+        </ul>
+
+        <p class="panel-footer-note">© 2025 LMS Platform. All rights reserved.</p>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-panel-right">
+        <div class="auth-form-box">
+            <p class="form-eyebrow">Welcome back</p>
+            <h1 class="form-title">Đăng nhập</h1>
+            <p class="form-subtitle">
+                Chưa có tài khoản? <a href="#" onclick="showPage('register'); return false;">Đăng ký miễn phí</a>
+            </p>
+
+            <form>
+                <div class="field-group">
+                    <label class="field-label">Email</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" placeholder="you@example.com" value="alice@lms.com">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Mật khẩu</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-lock field-icon"></i>
+                        <input type="password" id="pw-login" placeholder="••••••••" value="123456">
+                        <button type="button" class="toggle-pw" onclick="togglePw('pw-login', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-meta">
+                    <label>
+                        <input class="form-check-input me-1" type="checkbox" checked> Ghi nhớ đăng nhập
+                    </label>
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+
+                <button type="button" class="btn-auth">
+                    <i class="fas fa-arrow-right-to-bracket"></i>Đăng nhập
+                </button>
+
+                <div class="divider">hoặc</div>
+
+                <div class="back-home">
+                    <a href="#"><i class="fas fa-arrow-left"></i>Quay về trang chủ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: LOGIN WITH ERROR
+════════════════════════════════════════════ -->
+<div id="page-error" class="auth-wrapper" style="display:none;">
+    <div class="auth-panel-left">
+        <div class="brand-logo">
+            <div class="icon-wrap"><i class="fas fa-graduation-cap"></i></div>
+            <div class="brand-text">LMS PLATFORM<small>E-Learning System</small></div>
+        </div>
+        <h2 class="panel-headline">Học không có<br><span>giới hạn.</span></h2>
+        <p class="panel-sub">Nền tảng học tập trực tuyến toàn diện — khoá học, bài tập, quiz và hơn thế nữa.</p>
+        <ul class="feature-list">
+            <li><div class="feat-icon"><i class="fas fa-book-open"></i></div>Truy cập hàng trăm khoá học chất lượng cao</li>
+            <li><div class="feat-icon"><i class="fas fa-tasks"></i></div>Theo dõi tiến độ học tập theo thời gian thực</li>
+            <li><div class="feat-icon"><i class="fas fa-comments"></i></div>Tương tác trực tiếp với giảng viên</li>
+            <li><div class="feat-icon"><i class="fas fa-certificate"></i></div>Nhận chứng chỉ sau khi hoàn thành khoá học</li>
+        </ul>
+        <p class="panel-footer-note">© 2025 LMS Platform. All rights reserved.</p>
+    </div>
+    <div class="auth-panel-right">
+        <div class="auth-form-box">
+            <p class="form-eyebrow">Welcome back</p>
+            <h1 class="form-title">Đăng nhập</h1>
+            <p class="form-subtitle">Chưa có tài khoản? <a href="#" onclick="showPage('register'); return false;">Đăng ký miễn phí</a></p>
+
+            <div class="auth-alert danger">
+                <i class="fas fa-circle-exclamation"></i>
+                Email hoặc mật khẩu không chính xác.
+            </div>
+
+            <form>
+                <div class="field-group">
+                    <label class="field-label">Email</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" placeholder="you@example.com" value="wrong@email.com" style="border-color:#fca5a5; background:#fff8f8;">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Mật khẩu</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-lock field-icon"></i>
+                        <input type="password" id="pw-error" placeholder="••••••••" value="wrongpass" style="border-color:#fca5a5; background:#fff8f8;">
+                        <button type="button" class="toggle-pw" onclick="togglePw('pw-error', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-meta">
+                    <label><input class="form-check-input me-1" type="checkbox"> Ghi nhớ đăng nhập</label>
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+                <button type="button" class="btn-auth"><i class="fas fa-arrow-right-to-bracket"></i>Đăng nhập</button>
+                <div class="divider">hoặc</div>
+                <div class="back-home"><a href="#"><i class="fas fa-arrow-left"></i>Quay về trang chủ</a></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: REGISTER
+════════════════════════════════════════════ -->
+<div id="page-register" class="auth-wrapper" style="display:none;">
+
+    <!-- Left panel (same branding, different headline) -->
+    <div class="auth-panel-left">
+        <div class="brand-logo">
+            <div class="icon-wrap"><i class="fas fa-graduation-cap"></i></div>
+            <div class="brand-text">LMS PLATFORM<small>E-Learning System</small></div>
+        </div>
+
+        <h2 class="panel-headline">Bắt đầu hành trình<br><span>học tập của bạn.</span></h2>
+        <p class="panel-sub">Tham gia cùng hàng nghìn học viên đang học tập mỗi ngày trên nền tảng của chúng tôi.</p>
+
+        <ul class="feature-list">
+            <li><div class="feat-icon"><i class="fas fa-user-graduate"></i></div>Đăng ký hoàn toàn miễn phí</li>
+            <li><div class="feat-icon"><i class="fas fa-infinity"></i></div>Truy cập không giới hạn sau khi đăng ký khoá học</li>
+            <li><div class="feat-icon"><i class="fas fa-mobile-alt"></i></div>Học mọi lúc, mọi nơi trên mọi thiết bị</li>
+            <li><div class="feat-icon"><i class="fas fa-shield-halved"></i></div>Bảo mật tài khoản tuyệt đối</li>
+        </ul>
+
+        <p class="panel-footer-note">© 2025 LMS Platform. All rights reserved.</p>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-panel-right">
+        <div class="auth-form-box">
+            <p class="form-eyebrow">Get started</p>
+            <h1 class="form-title">Tạo tài khoản</h1>
+            <p class="form-subtitle">
+                Đã có tài khoản? <a href="#" onclick="showPage('login'); return false;">Đăng nhập ngay</a>
+            </p>
+
+            <form>
+                <div class="field-group">
+                    <label class="field-label">Họ và tên</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-user field-icon"></i>
+                        <input type="text" placeholder="Nguyễn Văn A">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Email</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Mật khẩu</label>
+                    <div class="field-wrap">
+                        <i class="fas fa-lock field-icon"></i>
+                        <input type="password" id="pw-reg" placeholder="Tối thiểu 6 ký tự">
+                        <button type="button" class="toggle-pw" onclick="togglePw('pw-reg', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <p class="password-hint"><i class="fas fa-circle-info me-1"></i>Tối thiểu 6 ký tự</p>
+                </div>
+
+                <button type="button" class="btn-auth" style="margin-top: 8px;">
+                    <i class="fas fa-user-plus"></i>Tạo tài khoản
+                </button>
+
+                <div class="divider">hoặc</div>
+
+                <div class="back-home">
+                    <a href="#"><i class="fas fa-arrow-left"></i>Quay về trang chủ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPage(name) {
+        ['login','register','error'].forEach(p => {
+            document.getElementById('page-' + p).style.display = 'none';
+        });
+        document.getElementById('page-' + name).style.display = 'flex';
+        document.querySelectorAll('.demo-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.demo-btn').forEach(b => {
+            if (b.textContent.toLowerCase().includes(name === 'error' ? 'error' : name)) b.classList.add('active');
+        });
+    }
+
+    function togglePw(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    }
+</script>
+</body>
+</html>
