@@ -9,22 +9,11 @@
         <h1 class="h3 text-primary fw-bold mb-1"><i class="fas fa-chalkboard-teacher me-2"></i>My Courses</h1>
         <p class="text-muted mb-0 small">Manage and track your courses.</p>
     </div>
-    <a href="/LMS_Project/public/course/create" class="btn btn-primary shadow-sm">
+    <a href="<?= BASE_URL ?>/course/create" class="btn btn-primary shadow-sm">
         <i class="fas fa-plus me-2"></i>Create New Course
     </a>
 </div>
 
-<?php if (isset($_GET['status'])): ?>
-    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        <?php
-            if ($_GET['status'] == 'created') echo 'Course created successfully!';
-            if ($_GET['status'] == 'updated') echo 'Course updated successfully!';
-            if ($_GET['status'] == 'deleted') echo 'Course deleted successfully!';
-        ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php endif; ?>
 
 <!-- Stats Row -->
 <div class="row g-3 mb-4">
@@ -94,14 +83,14 @@
                                 <i class="fas fa-folder-open fa-3x text-muted mb-3 opacity-50 d-block"></i>
                                 <h5 class="text-muted">No courses yet</h5>
                                 <p class="text-muted small mb-2">Create your first course to get started.</p>
-                                <a href="/LMS_Project/public/course/create" class="btn btn-outline-primary btn-sm">Create course</a>
+                                <a href="<?= BASE_URL ?>/course/create" class="btn btn-outline-primary btn-sm">Create course</a>
                             </td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($courses as $course): ?>
                             <?php
                                 $thumb = $course['thumbnail'] ?? '';
-                                $imgSrc = $thumb ? '/LMS_Project/public/assets/uploads/' . $thumb : 'https://via.placeholder.com/80x50?text=No+Image';
+                                $imgSrc = $thumb ? BASE_URL . '/assets/uploads/' . $thumb : 'https://via.placeholder.com/80x50?text=No+Image';
                                 $status = $course['status'] ?? 'published';
                             ?>
                             <tr>
@@ -110,7 +99,7 @@
                                     <img src="<?= htmlspecialchars($imgSrc) ?>" alt="" class="rounded" width="80" height="50" style="object-fit: cover;">
                                 </td>
                                 <td>
-                                    <a href="/LMS_Project/public/course/detail/<?= (int) $course['id'] ?>" class="text-dark fw-semibold text-decoration-none">
+                                    <a href="<?= BASE_URL ?>/course/detail/<?= (int) $course['id'] ?>" class="text-dark fw-semibold text-decoration-none">
                                         <?= htmlspecialchars($course['title']) ?>
                                     </a>
                                 </td>
@@ -126,13 +115,13 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a href="/LMS_Project/public/course/add_lesson/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-info" title="Lessons">
+                                        <a href="<?= BASE_URL ?>/course/add_lesson/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-info" title="Lessons">
                                             <i class="fas fa-video"></i>
                                         </a>
-                                        <a href="/LMS_Project/public/course/edit/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-warning" title="Edit">
+                                        <a href="<?= BASE_URL ?>/course/edit/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-warning" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="/LMS_Project/public/course/delete/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-danger" title="Delete"
+                                        <a href="<?= BASE_URL ?>/course/delete/<?= (int) $course['id'] ?>" class="btn btn-sm btn-outline-danger" title="Delete"
                                            onclick="return confirm('Delete this course? All lessons will be removed.');">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>

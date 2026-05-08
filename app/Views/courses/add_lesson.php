@@ -9,13 +9,7 @@
             </div>
             <div class="card-body p-4">
                 
-                <?php if (isset($_GET['status']) && $_GET['status'] == 'success'): ?>
-                    <div class="alert alert-success d-flex align-items-center">
-                        <i class="fas fa-check-circle me-2"></i> Lesson added successfully!
-                    </div>
-                <?php endif; ?>
-
-                <form action="/LMS_Project/public/course/store_lesson/<?= $data['course']['id'] ?>" method="POST">
+                <form action="<?= BASE_URL ?>/course/store_lesson/<?= $data['course']['id'] ?>" method="POST">
                     <div class="mb-3">
                         <label class="form-label fw-bold">Lesson Title</label>
                         <input type="text" name="title" class="form-control" required placeholder="e.g. Introduction to PHP">
@@ -32,7 +26,7 @@
                         <button type="submit" class="btn btn-success fw-bold">
                             <i class="fas fa-save me-1"></i> Save Lesson
                         </button>
-                        <a href="/LMS_Project/public/course/my_courses" class="btn btn-outline-secondary">
+                        <a href="<?= BASE_URL ?>/course/my_courses" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-1"></i> Done / Back to Dashboard
                         </a>
                     </div>

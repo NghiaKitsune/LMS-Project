@@ -8,10 +8,10 @@
             <p class="text-muted mb-0">Track the status of your support requests.</p>
         </div>
         <div>
-            <a href="/LMS_Project/public/support/index" class="btn btn-success fw-bold shadow-sm">
+            <a href="<?= BASE_URL ?>/support/index" class="btn btn-success fw-bold shadow-sm">
                 <i class="fas fa-plus me-1"></i> New Request
             </a>
-            <a href="/LMS_Project/public/profile/index" class="btn btn-outline-secondary ms-2">
+            <a href="<?= BASE_URL ?>/profile/index" class="btn btn-outline-secondary ms-2">
                 <i class="fas fa-arrow-left me-1"></i> Profile
             </a>
         </div>
@@ -25,7 +25,7 @@
                     <i class="far fa-folder-open fa-4x text-muted mb-3 opacity-50"></i>
                     <h5 class="text-muted">You haven't sent any support requests yet.</h5>
                     <p class="text-muted small">Need help? Create a new ticket now.</p>
-                    <a href="/LMS_Project/public/support/index" class="btn btn-outline-primary btn-sm mt-2">Create Ticket</a>
+                    <a href="<?= BASE_URL ?>/support/index" class="btn btn-outline-primary btn-sm mt-2">Create Ticket</a>
                 </div>
             <?php else: ?>
                 <div class="table-responsive">

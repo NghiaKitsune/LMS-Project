@@ -12,7 +12,7 @@
                     
                     <h5 class="card-title text-center mb-4">Editing User: <strong><?= htmlspecialchars($data['user']['fullname']) ?></strong></h5>
 
-                    <form action="/LMS_Project/public/admin/update_user/<?= $data['user']['id'] ?>" method="POST">
+                    <form action="<?= BASE_URL ?>/admin/update_user/<?= $data['user']['id'] ?>" method="POST">
                         
                         <div class="mb-3">
                             <label class="fw-bold">Full Name</label>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="/LMS_Project/public/admin/dashboard" class="btn btn-secondary">Cancel</a>
+                            <a href="<?= BASE_URL ?>/admin/dashboard" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-danger fw-bold">Update User Info</button>
                         </div>
                     </form>

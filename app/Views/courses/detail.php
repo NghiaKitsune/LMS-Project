@@ -2,7 +2,7 @@
 
 <nav aria-label="breadcrumb" class="mt-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/LMS_Project/public/home/index" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?= BASE_URL ?>/home/index" class="text-decoration-none">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Course Details</li>
     </ol>
 </nav>
@@ -10,7 +10,7 @@
 <div class="row mb-5">
     <div class="col-md-8">
         <?php 
-            $img = $data['course']['thumbnail'] ? '/LMS_Project/public/assets/uploads/'.$data['course']['thumbnail'] : 'https://via.placeholder.com/800x400';
+            $img = $data['course']['thumbnail'] ? BASE_URL . '/assets/uploads/'.$data['course']['thumbnail'] : 'https://via.placeholder.com/800x400';
         ?>
         <div class="position-relative">
             <img src="<?= $img ?>" class="img-fluid rounded mb-4 shadow w-100" alt="Course Thumbnail" style="max-height: 400px; object-fit: cover;">
@@ -47,10 +47,10 @@
                 
                 <?php if(isset($_SESSION['user_role']) && ($_SESSION['user_role'] == 'instructor' || $_SESSION['user_role'] == 'admin')): ?>
                     <div>
-                        <a href="/LMS_Project/public/assignment/create/<?= $data['course']['id'] ?>" class="btn btn-sm btn-outline-primary me-1">
+                        <a href="<?= BASE_URL ?>/assignment/create/<?= $data['course']['id'] ?>" class="btn btn-sm btn-outline-primary me-1">
                             <i class="fas fa-plus"></i> Assign
                         </a>
-                        <a href="/LMS_Project/public/quiz/create/<?= $data['course']['id'] ?>" class="btn btn-sm btn-outline-success">
+                        <a href="<?= BASE_URL ?>/quiz/create/<?= $data['course']['id'] ?>" class="btn btn-sm btn-outline-success">
                             <i class="fas fa-plus"></i> Quiz
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                     <h6 class="text-primary fw-bold mb-2 small text-uppercase">Homework</h6>
                     <div class="list-group mb-4">
                         <?php foreach($data['assignments'] as $ass): ?>
-                            <a href="/LMS_Project/public/assignment/detail/<?= $ass['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a href="<?= BASE_URL ?>/assignment/detail/<?= $ass['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div>
                                     <i class="fas fa-file-alt me-2 text-secondary"></i>
                                     <strong><?= htmlspecialchars($ass['title']) ?></strong>
@@ -78,7 +78,7 @@
                     <h6 class="text-success fw-bold mb-2 small text-uppercase">Quizzes</h6>
                     <div class="list-group">
                         <?php foreach($data['quizzes'] as $qz): ?>
-                            <a href="/LMS_Project/public/quiz/take/<?= $qz['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a href="<?= BASE_URL ?>/quiz/take/<?= $qz['id'] ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                 <div>
                                     <i class="fas fa-question-circle me-2 text-success"></i>
                                     <strong><?= htmlspecialchars($qz['title']) ?></strong>
@@ -109,15 +109,15 @@
 
                 <div class="d-grid gap-2 mb-3">
                     <?php if ($data['isOwner']): ?>
-                        <a href="/LMS_Project/public/course/my_courses" class="btn btn-secondary fw-bold py-2">
+                        <a href="<?= BASE_URL ?>/course/my_courses" class="btn btn-secondary fw-bold py-2">
                             <i class="fas fa-cog me-2"></i>Manage Course
                         </a>
-                        <a href="/LMS_Project/public/course/add_lesson/<?= $data['course']['id'] ?>" class="btn btn-outline-primary py-2">
+                        <a href="<?= BASE_URL ?>/course/add_lesson/<?= $data['course']['id'] ?>" class="btn btn-outline-primary py-2">
                             <i class="fas fa-video me-2"></i>Add Lesson
                         </a>
 
                     <?php elseif ($data['isEnrolled']): ?>
-                        <a href="/LMS_Project/public/course/learn/<?= $data['course']['id'] ?>" class="btn btn-success btn-lg fw-bold py-3 shadow-sm">
+                        <a href="<?= BASE_URL ?>/course/learn/<?= $data['course']['id'] ?>" class="btn btn-success btn-lg fw-bold py-3 shadow-sm">
                             <i class="fas fa-play-circle me-2"></i>Continue Learning
                         </a>
 
@@ -125,7 +125,7 @@
                         <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'instructor'): ?>
                             <button class="btn btn-secondary btn-lg" disabled>Instructor View Only</button>
                         <?php else: ?>
-                            <form action="/LMS_Project/public/course/enroll/<?= $data['course']['id'] ?>" method="POST">
+                            <form action="<?= BASE_URL ?>/course/enroll/<?= $data['course']['id'] ?>" method="POST">
                                 <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold py-3 shadow-sm pulse-button">
                                     Enroll Now
                                 </button>

@@ -48,7 +48,8 @@ class AuthController extends Controller {
         // 6. Create User
         if ($userModel->register($fullname, $email, $hashedPassword)) {
             // Success -> Redirect to Login
-            header('Location: ' . BASE_URL . '/auth/login?status=success');
+            flash_set('Đăng ký thành công! Hãy đăng nhập để tiếp tục.');
+            header('Location: ' . BASE_URL . '/auth/login');
         } else {
             // Failed
             $this->view('auth/register', [

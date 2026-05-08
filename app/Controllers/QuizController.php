@@ -44,7 +44,8 @@ class QuizController extends Controller {
                 }
             }
 
-            header("Location: /LMS_Project/public/course/detail/$course_id?msg=quiz_created");
+            flash_set('Quiz created successfully.');
+            header("Location: " . BASE_URL . "/course/detail/$course_id");
         }
     }
 
@@ -98,7 +99,7 @@ class QuizController extends Controller {
             $quizModel->saveAttempt($id, $_SESSION['user_id'], $score);
 
             // Chuyển hướng đến trang kết quả
-            header("Location: /LMS_Project/public/quiz/result/$id?score=$score");
+            header("Location: " . BASE_URL . "/quiz/result/$id?score=$score");
         }
     }
 

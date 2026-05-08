@@ -8,25 +8,18 @@
             </h1>
             <p class="text-muted small mb-0">Track your progress and continue where you left off.</p>
         </div>
-        <a href="/LMS_Project/public/home/index" class="btn btn-outline-primary btn-sm">
+        <a href="<?= BASE_URL ?>/home/index" class="btn btn-outline-primary btn-sm">
             <i class="fas fa-th-large me-1"></i>Browse Courses
         </a>
     </div>
 </header>
-
-<?php if (isset($_GET['status']) && $_GET['status'] == 'success'): ?>
-    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-        <i class="fas fa-check-circle me-2"></i><strong>Enrolled!</strong> You can start learning now.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php endif; ?>
 
 <?php if (empty($data['courses'])): ?>
     <div class="learning-empty text-center py-5 px-4 rounded border bg-white shadow-sm">
         <i class="fas fa-graduation-cap fa-4x text-muted mb-3 opacity-25"></i>
         <h4 class="text-muted fw-semibold">No courses yet</h4>
         <p class="text-muted mb-4">Enroll in a course to see it here and track your progress.</p>
-        <a href="/LMS_Project/public/home/index" class="btn btn-primary px-4">
+        <a href="<?= BASE_URL ?>/home/index" class="btn btn-primary px-4">
             <i class="fas fa-search me-2"></i>Browse Courses
         </a>
     </div>
@@ -34,7 +27,7 @@
     <div class="row g-4">
         <?php foreach ($data['courses'] as $course): ?>
             <?php
-                $img = $course['thumbnail'] ? '/LMS_Project/public/assets/uploads/' . $course['thumbnail'] : 'https://via.placeholder.com/600x320?text=No+Image';
+                $img = $course['thumbnail'] ? BASE_URL . '/assets/uploads/' . $course['thumbnail'] : 'https://via.placeholder.com/600x320?text=No+Image';
                 $pct = (($course['id'] * 17 + 31) % 91) + 5;
             ?>
             <div class="col-12 col-md-6 col-lg-4">
@@ -59,7 +52,7 @@
                                 <div class="progress-bar" style="width: <?= $pct ?>%"></div>
                             </div>
                         </div>
-                        <a href="/LMS_Project/public/course/learn/<?= $course['id'] ?>" class="btn btn-primary btn-sm mt-auto">
+                        <a href="<?= BASE_URL ?>/course/learn/<?= $course['id'] ?>" class="btn btn-primary btn-sm mt-auto">
                             <i class="fas fa-play me-2"></i>Continue Learning
                         </a>
                     </div>

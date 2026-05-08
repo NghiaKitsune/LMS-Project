@@ -11,27 +11,14 @@
         <div class="card shadow border-0">
             <div class="card-header bg-primary text-white p-4 d-flex justify-content-between align-items-center">
                 <h4 class="mb-0 fw-bold"><i class="fas fa-paper-plane me-2"></i>Submit a Request</h4>
-                <a href="/LMS_Project/public/support/history" class="btn btn-sm btn-outline-light fw-bold">
+                <a href="<?= BASE_URL ?>/support/history" class="btn btn-sm btn-outline-light fw-bold">
                     <i class="fas fa-history me-1"></i> View My History
                 </a>
             </div>
             
             <div class="card-body p-5">
 
-                <?php if (isset($_GET['status']) && $_GET['status'] == 'sent'): ?>
-                    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle fa-2x me-3"></i>
-                            <div>
-                                <strong>Request Sent Successfully!</strong><br>
-                                Your ticket has been sent to the Administrator. We will contact you shortly via email.
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                <?php endif; ?>
-
-                <form action="/LMS_Project/public/support/send" method="POST">
+                <form action="<?= BASE_URL ?>/support/send" method="POST">
                     <div class="mb-3">
                         <label class="fw-bold form-label">Subject <span class="text-danger">*</span></label>
                         <div class="input-group">
@@ -49,7 +36,7 @@
                         <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-sm hover-effect">
                             Submit Request 🚀
                         </button>
-                        <a href="/LMS_Project/public/home/index" class="btn btn-outline-secondary">
+                        <a href="<?= BASE_URL ?>/home/index" class="btn btn-outline-secondary">
                             Cancel & Return Home
                         </a>
                     </div>

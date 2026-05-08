@@ -364,3 +364,28 @@ body {
         padding-right: 1.5rem;
     }
 }
+
+/* ── Global layout ──────────────────────────────── */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+}
+.navbar-brand { font-weight: 800; letter-spacing: 1px; }
+footer { margin-top: auto; }
+.card { border: none; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075); }
+
+/* ── Navbar notification badge ──────────────────── */
+.nav-link { position: relative; }
+.notification-badge {
+    font-size: 0.65rem;
+    padding: 0.25em 0.5em;
+    position: absolute;
+    top: 2px;
+    right: 0;
+    transform: translate(30%, -20%);
+    min-width: 1.2rem;
+    text-align: center;
+    border: 2px solid #0d6efd;
+}

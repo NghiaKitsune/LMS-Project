@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             
-            <a href="/LMS_Project/public/message/index" class="btn btn-outline-secondary btn-sm mb-3">
+            <a href="<?= BASE_URL ?>/message/index" class="btn btn-outline-secondary btn-sm mb-3">
                 <i class="fas fa-arrow-left me-1"></i> Back to Inbox
             </a>
 
@@ -27,7 +27,7 @@
                     <button class="btn btn-primary btn-sm" onclick="alert('Reply feature coming soon!')">
                         <i class="fas fa-reply me-1"></i> Reply
                     </button>
-                    <a href="/LMS_Project/public/message/delete/<?= $data['message']['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this message?');">
+                    <a href="<?= BASE_URL ?>/message/delete/<?= $data['message']['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this message?');">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </div>

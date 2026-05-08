@@ -36,10 +36,10 @@
                 </div>
 
                 <div class="d-grid gap-2 col-8 mx-auto">
-                    <a href="/LMS_Project/public/course/detail/<?= $data['quiz']['course_id'] ?>" class="btn btn-outline-secondary fw-bold">
+                    <a href="<?= BASE_URL ?>/course/detail/<?= $data['quiz']['course_id'] ?>" class="btn btn-outline-secondary fw-bold">
                         <i class="fas fa-arrow-left me-2"></i> Back to Course
                     </a>
-                    <a href="/LMS_Project/public/profile/grades" class="btn btn-primary fw-bold shadow-sm">
+                    <a href="<?= BASE_URL ?>/profile/grades" class="btn btn-primary fw-bold shadow-sm">
                         <i class="fas fa-chart-line me-2"></i> View Gradebook
                     </a>
                 </div>

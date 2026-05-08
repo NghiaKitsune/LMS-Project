@@ -27,7 +27,8 @@ class SupportController extends Controller {
             
             if ($supportModel->createTicket($user_id, $subject, $message)) {
                 // Gửi xong thì báo thành công
-                header('Location: ' . BASE_URL . '/support/index?status=sent');
+                flash_set('Your support request has been sent successfully.');
+                header('Location: ' . BASE_URL . '/support/index');
             } else {
                 echo "Error sending request.";
             }

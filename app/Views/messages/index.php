@@ -6,7 +6,7 @@
             
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="text-primary fw-bold"><i class="fas fa-envelope me-2"></i>Inbox</h3>
-                <a href="/LMS_Project/public/home/index" class="btn btn-outline-secondary btn-sm shadow-sm">
+                <a href="<?= BASE_URL ?>/home/index" class="btn btn-outline-secondary btn-sm shadow-sm">
                     <i class="fas fa-arrow-left me-1"></i> Back to Home
                 </a>
             </div>
@@ -29,7 +29,7 @@
                                 $textClass = $isUnread ? 'fw-bold text-dark' : 'text-secondary';
                             ?>
 
-                            <a href="/LMS_Project/public/message/detail/<?= $msg['id'] ?>" class="list-group-item list-group-item-action p-3 <?= $bgClass ?>">
+                            <a href="<?= BASE_URL ?>/message/detail/<?= $msg['id'] ?>" class="list-group-item list-group-item-action p-3 <?= $bgClass ?>">
                                 <div class="d-flex w-100 justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; font-size: 14px;">

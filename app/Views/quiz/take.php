@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <form action="/LMS_Project/public/quiz/submit/<?= $data['quiz']['id'] ?>" method="POST">
+        <form action="<?= BASE_URL ?>/quiz/submit/<?= $data['quiz']['id'] ?>" method="POST">
             
             <?php foreach($data['questions'] as $index => $q): ?>
                 <div class="card shadow-sm border-0 mb-4">

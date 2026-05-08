@@ -1,7 +1,7 @@
 <?php require_once '../app/Views/inc/header.php'; ?>
 
 <div class="mt-4">
-    <a href="/LMS_Project/public/course/detail/<?= $data['assignment']['course_id'] ?>" class="btn btn-outline-secondary mb-4 shadow-sm">
+    <a href="<?= BASE_URL ?>/course/detail/<?= $data['assignment']['course_id'] ?>" class="btn btn-outline-secondary mb-4 shadow-sm">
         <i class="fas fa-arrow-left me-2"></i> Back to Course
     </a>
 
@@ -49,7 +49,7 @@
 
                     <div class="mb-4">
                         <p class="mb-1 fw-bold">Submitted File:</p>
-                        <a href="/LMS_Project/public/assets/assignments/<?= $data['my_submission']['file_path'] ?>" class="btn btn-outline-dark btn-sm" download>
+                        <a href="<?= BASE_URL ?>/assets/assignments/<?= $data['my_submission']['file_path'] ?>" class="btn btn-outline-dark btn-sm" download>
                             <i class="fas fa-file-download me-2"></i> Download File
                         </a>
                     </div>
@@ -73,7 +73,7 @@
                     <?php endif; ?>
 
                 <?php else: ?>
-                    <form action="/LMS_Project/public/assignment/upload/<?= $data['assignment']['id'] ?>" method="POST" enctype="multipart/form-data">
+                    <form action="<?= BASE_URL ?>/assignment/upload/<?= $data['assignment']['id'] ?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label class="form-label fw-bold">Upload your work (PDF, Zip, Docx)</label>
                             <div class="position-relative">
@@ -125,7 +125,7 @@
                                 <tr>
                                     <td class="ps-4 fw-bold"><?= htmlspecialchars($sub['fullname']) ?></td>
                                     <td>
-                                        <a href="/LMS_Project/public/assets/assignments/<?= $sub['file_path'] ?>" class="btn btn-sm btn-outline-dark" download>
+                                        <a href="<?= BASE_URL ?>/assets/assignments/<?= $sub['file_path'] ?>" class="btn btn-sm btn-outline-dark" download>
                                             <i class="fas fa-download"></i>
                                         </a>
                                     </td>
@@ -145,7 +145,7 @@
                                         <div class="modal fade text-start" id="gradeModal<?= $sub['id'] ?>" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="/LMS_Project/public/assignment/grade" method="POST">
+                                                    <form action="<?= BASE_URL ?>/assignment/grade" method="POST">
                                                         <div class="modal-header bg-light">
                                                             <h5 class="modal-title fw-bold">Grade for <?= htmlspecialchars($sub['fullname']) ?></h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
